@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <title>Hello World!</title>
-    <link rel="stylesheet" href="index.css" />
-  </head>
-  <body>
-    <h1>💖 Hello World!</h1>
-    <p>Welcome to your Electron application.</p>
-  </body>
+    <link rel="stylesheet" href="index.css"/>
+</head>
+<body>
+<img id="duck" src="duck.png">
+<audio id="krik" preload="auto" src="krik.mp3"></audio>
+</body>
+<script>
+    let audio = document.getElementById("krik");
+    audio.volume = 1
+    document.getElementById('duck').addEventListener('click', () => {
+        document.getElementById('krik').play();
+    })
+</script>
 </html>
