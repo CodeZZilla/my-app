@@ -61,3 +61,22 @@ app.on('activate', () => {
     }
 });
 
+function listen() {
+    let mic = document.getElementById('mic');
+    mic.style.color = 'red';
+    mic.className = 'animated pulse infinite';
+    let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    var hear = new SpeechRecognition();
+    hear.continuous = false;
+    hear.lang = 'en-IN';
+    hear.start();
+    hear.onresult = function (e) {
+        mic.style.color = 'black';
+        mic.className = '';
+        userVoiceText = e.results[0][0].transcript;
+        hear.stop();
+        createSender(userVoiceText);
+        respond(userVoiceText);
+    }
+}
+listen();
