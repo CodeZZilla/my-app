@@ -24,10 +24,10 @@ const createDuckWindow = () => {
         height: 350,
         x: 0,
         y: 0,
-        alwaysOnTop: true,
         minimizable: false
     })
-    duckWindow.setVisibleOnAllWorkspaces(true)
+    duckWindow.setAlwaysOnTop(true, "screen-saver");
+    duckWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen:true})
     duckWindow.loadFile(path.join(__dirname, 'index.html'))
 };
 
@@ -52,7 +52,7 @@ app.on('activate', () => {
 })
 
 const createTray = () => {
-    tray = new Tray(path.join(assetsDirectory, 'icon2.png'))
+    tray = new Tray(path.join(assetsDirectory, 'duck-icon.png'))
     tray.on('right-click', toggleWindow)
     tray.on('double-click', toggleWindow)
     tray.on('click', function (event) {
@@ -87,15 +87,14 @@ const createWindowSettings = () => {
         resizable: false,
         backgroundColor: "rgb(255,255,255)",
         transparent: true,
-        type:'toolbar',
         fullscreen: false,
         webPreferences: {
             // Предотвращает запуск кода процесса рендеринга, когда окно скрыто.
             backgroundThrottling: false
         }
     })
-    window.setAlwaysOnTop(true, "floating");
-    window.setVisibleOnAllWorkspaces(true)
+    window.setAlwaysOnTop(true, "screen-saver");
+    window.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen:true})
 
     window.loadURL(`file://${path.join(__dirname, 'settings.html')}`)
 
