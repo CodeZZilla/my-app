@@ -10,6 +10,8 @@ if (require('electron-squirrel-startup')) {
 const createWindow = () => {
     const mainWindow = new BrowserWindow({
         frame: 0,
+
+        hasShadow: false,
         transparent: true,
         backgroundColor: "rgba(255,0,0,0)",
         autoHideMenuBar: true,
