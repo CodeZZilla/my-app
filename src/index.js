@@ -25,6 +25,7 @@ const createDuckWindow = () => {
         x: 0,
         y: 0,
         minimizable: false,
+        
         webPreferences: {
             preload: path.join(__dirname, 'mood.js')
         }
