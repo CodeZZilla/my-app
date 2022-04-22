@@ -24,7 +24,10 @@ const createDuckWindow = () => {
         height: 350,
         x: 0,
         y: 0,
-        minimizable: false
+        minimizable: false,
+        webPreferences: {
+            preload: path.join(__dirname, 'mood.js')
+        }
     })
     duckWindow.setAlwaysOnTop(true, "screen-saver");
     duckWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen:true})
@@ -90,7 +93,8 @@ const createWindowSettings = () => {
         fullscreen: false,
         webPreferences: {
             // Предотвращает запуск кода процесса рендеринга, когда окно скрыто.
-            backgroundThrottling: false
+            backgroundThrottling: false,
+            preload: path.join(__dirname, 'mood.js')
         }
     })
     window.setAlwaysOnTop(true, "screen-saver");
@@ -124,6 +128,4 @@ const showWindow = () => {
 ipcMain.on('show-window', () => {
     showWindow()
 })
-
-
 

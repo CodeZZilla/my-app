@@ -4,12 +4,13 @@
     <meta charset="UTF-8"/>
     <title>Duck</title>
     <link rel="stylesheet" href="index.css"/>
+
+
 </head>
 <body>
-<img id="duck" class="duck" src="duck.png">
+<img id="duck" class="duck" src="assets/ducks/duck.png">
 <audio id="krik" preload="auto" src="krik.mp3"></audio>
 </body>
-<script src="mood.js"></script>
 <script>
     let audio = document.getElementById("krik");
     audio.volume = 1
@@ -17,4 +18,5 @@
         document.getElementById('krik').play();
     })
 </script>
+<script src="./mood.js"></script>
 </html>
