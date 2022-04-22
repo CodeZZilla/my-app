@@ -2,9 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="settings.css">
     <title>Title</title>
+
 </head>
-<body>
-    <h1>Hello</h1>
+<body class="p-auto-dark-mode p-layout default">
+<div class=" p-modal-background wrapper">
+    <div class="header">
+        <img class="logo" src="assets/duck-icon.png" alt="">
+        <h3>Duck Settings</h3>
+    </div>
+    <div class="body__wrapper">
+        <div class="body">
+
+            <p>Mood</p>
+            <div class="p-segmented-controls" id="mood">
+                <a id="standart" onclick="setDuck()" href="#" class="active">Standart</a>
+                <a id="realistic" onclick="setDuck()" href="#" >Realistic</a>
+                <a id="cool" onclick="setDuck()" href="#" >Cool</a>
+            </div>
+            <hr>
+
+            <p>Language</p>
+            <div class="p-segmented-controls">
+                <a href="#" class="active">English</a>
+                <a href="#">Ukrainian</a>
+            </div>
+            <hr>
+
+            <p>Sound</p>
+            <input type="range" min="0" max="100" class="p-form-range">
+
+            <a href="#" class="p-btn">Donut</a>
+
+        </div>
+    </div>
+</div>
+
+<script src="mood.js"></script>
+<script>
+        var p_segmented_controls = document.querySelectorAll(".p-segmented-controls a");
+        for (var item of p_segmented_controls) {
+            item.addEventListener("click", function (event) {
+                event.preventDefault();
+                this.parentElement.querySelector("a.active").classList.remove("active");
+                this.classList.add("active");
+            });
+        }
+
+</script>
 </body>
 </html>

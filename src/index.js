@@ -80,7 +80,7 @@ const getWindowPosition = () => {
 
 const createWindowSettings = () => {
     window = new BrowserWindow({
-        width: 300,
+        width: 800,
         height: 450,
         show: false,
         frame: false,
@@ -95,7 +95,7 @@ const createWindowSettings = () => {
     })
     window.setAlwaysOnTop(true, "screen-saver");
     window.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen:true})
-
+    window.webContents.openDevTools();
     window.loadURL(`file://${path.join(__dirname, 'settings.html')}`)
 
     // Скрыть окно, когда оно теряет фокус
@@ -124,3 +124,6 @@ const showWindow = () => {
 ipcMain.on('show-window', () => {
     showWindow()
 })
+
+
+
