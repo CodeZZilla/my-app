@@ -21,7 +21,7 @@ const createDuckWindow = () => {
         autoHideMenuBar: true,
         resizable: false,
         width: 300,
-        height: 350,
+        height: 200,
         x: 0,
         y: 0,
         minimizable: false,
