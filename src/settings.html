@@ -4,50 +4,103 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="settings.css">
     <title>Title</title>
-
 </head>
 <body class="p-auto-dark-mode p-layout default">
 <div class=" p-modal-background wrapper">
     <div class="header">
         <img class="logo" src="assets/duck-icon.png" alt="">
-        <h3>Duck Settings</h3>
+        <h3 id="title">Duck Settings</h3>
     </div>
     <div class="body__wrapper">
         <div class="body">
 
-            <p>Mood</p>
+            <p id="mood-title">Mood</p>
             <div class="p-segmented-controls" id="mood">
                 <a id="standart" onclick="setDuck(this)" href="#" class="active">Standart</a>
-                <a id="realistic" onclick="setDuck(this)" href="#" >Realistic</a>
-                <a id="cool" onclick="setDuck(this)" href="#" >Cool</a>
+                <a id="realistic" onclick="setDuck(this)" href="#">Realistic</a>
+                <a id="cool" onclick="setDuck(this)" href="#">Cool</a>
             </div>
             <hr>
 
-            <p>Language</p>
+            <p id="language-title">Language</p>
             <div class="p-segmented-controls">
-                <a href="#" class="active">English</a>
-                <a href="#">Ukrainian</a>
+                <a id="en" href="#" class="active" onclick="languageChange(this)">English</a>
+                <a id="uk" href="#" onclick="languageChange(this)">Українська</a>
             </div>
             <hr>
 
-            <p>Sound</p>
-            <input type="range" min="0" max="100" class="p-form-range">
+            <p id="sound-title">Sound</p>
+            <input id="sound" type="range" min="0" max="100" value="100" onchange="changeSound()" class="p-form-range">
 
-            <a href="#" class="p-btn">Donut</a>
-
+            <a id="btn-donut" href="#" class="p-btn">Donut</a>
         </div>
     </div>
 </div>
-<script src="./mood.js"></script>
+<!--<script src="./mood.js"></script>-->
 <script>
-        var p_segmented_controls = document.querySelectorAll(".p-segmented-controls a");
-        for (var item of p_segmented_controls) {
-            item.addEventListener("click", function (event) {
-                event.preventDefault();
-                this.parentElement.querySelector("a.active").classList.remove("active");
-                this.classList.add("active");
-            });
+    var p_segmented_controls = document.querySelectorAll(".p-segmented-controls a");
+    for (var item of p_segmented_controls) {
+        item.addEventListener("click", function (event) {
+            event.preventDefault();
+            this.parentElement.querySelector("a.active").classList.remove("active");
+            this.classList.add("active");
+        });
+    }
+    const channelImg = new BroadcastChannel("settingsImg");
+    const channelSound = new BroadcastChannel("settingsSound");
+    let activeMood = 'Standart';
+
+    let setDuck = (mood) => {
+        switch (mood.id){
+            case "standart":
+                channelImg.postMessage("assets/ducks/duck.png");
+                break;
+            case "realistic":
+                channelImg.postMessage("assets/ducks/duck_PNG5011.png");
+                break;
+            case "cool":
+                channelImg.postMessage("assets/ducks/83e4a943664a198eb141cd46d6e36b21.png");
+                break;
         }
+    }
+
+    let changeSound = () => {
+        let element = document.getElementById('sound')
+        channelSound.postMessage(element.value/100)
+    }
+
+    let title = document.getElementById('title')
+    let moodTitle = document.getElementById('mood-title')
+    let languageTitle = document.getElementById('language-title')
+    let soundTitle = document.getElementById('sound-title')
+    let btnDonut = document.getElementById('btn-donut')
+    let standartBtn = document.getElementById('standart')
+    let realisticBtn = document.getElementById('realistic')
+    let coolBtn = document.getElementById('cool')
+
+
+
+    let languageChange = (element) => {
+        if(element.id === 'uk'){
+            title.textContent = "Налаштування качки"
+            moodTitle.textContent = "Настрій"
+            languageTitle.textContent = "Мова"
+            soundTitle.textContent = "Звук"
+            btnDonut.textContent = "Донат"
+            standartBtn.textContent = "Стандартна"
+            realisticBtn.textContent = "Реалістична"
+            coolBtn.textContent = "Крута"
+        } else if (element.id === 'en') {
+            title.textContent = "Duck Settings"
+            moodTitle.textContent = "Mood"
+            languageTitle.textContent = "Language"
+            soundTitle.textContent = "Sound"
+            btnDonut.textContent = "Donut"
+            standartBtn.textContent = "Standart"
+            realisticBtn.textContent = "Realistic"
+            coolBtn.textContent = "Cool"
+        }
+    }
 </script>
 </body>
 </html>

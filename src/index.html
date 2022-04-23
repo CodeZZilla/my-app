@@ -4,19 +4,30 @@
     <meta charset="UTF-8"/>
     <title>Duck</title>
     <link rel="stylesheet" href="index.css"/>
-
-
 </head>
 <body>
 <img id="duck" class="duck" src="assets/ducks/duck.png">
 <audio id="krik" preload="auto" src="krik.mp3"></audio>
 </body>
 <script>
+    let duck = document.getElementById('duck')
     let audio = document.getElementById("krik");
     audio.volume = 1
-    document.getElementById('duck').addEventListener('click', () => {
-        document.getElementById('krik').play();
+    duck.addEventListener('click', () => {
+        audio.play();
     })
+
+    const channelImg = new BroadcastChannel("settingsImg");
+    const channelSound = new BroadcastChannel("settingsSound");
+
+    channelImg.onmessage = (event) => {
+        duck.src = event.data
+    }
+
+    channelSound.onmessage = (event) => {
+        audio.volume = event.data
+        audio.play();
+    }
 </script>
 <script src="./mood.js"></script>
 </html>
