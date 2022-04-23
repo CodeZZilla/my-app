@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain, Tray} = require('electron')
+const {app, BrowserWindow, ipcMain, Tray, ipcRenderer} = require('electron')
 const path = require('path')
 
 if (require('electron-squirrel-startup')) {
@@ -83,7 +83,7 @@ const getWindowPosition = () => {
 
 const createWindowSettings = () => {
     window = new BrowserWindow({
-        width: 355,
+        width: 355, //355
         height: 450,
         show: false,
         frame: false,
@@ -94,7 +94,8 @@ const createWindowSettings = () => {
         webPreferences: {
             // Предотвращает запуск кода процесса рендеринга, когда окно скрыто.
             backgroundThrottling: false,
-            nodeIntegration: true
+            nodeIntegration: true,
+            contextIsolation: false
         }
     })
     window.setAlwaysOnTop(true, "screen-saver");
@@ -128,3 +129,11 @@ const showWindow = () => {
 ipcMain.on('show-window', () => {
     showWindow()
 })
+
+ipcMain.on('duck-window-status', (event, json) => {
+    if (duckWindow.isVisible()) {
+        duckWindow.hide()
+    } else {
+        duckWindow.show()
+    }
+});
