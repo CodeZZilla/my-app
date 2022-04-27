@@ -10,6 +10,9 @@
     <div class="callout top-left callout-text" id="callout-text">Your Favourite HTML,CSS,JS Playground!</div>
 </div>
 <script>
+    let lang = 'en';
+    const channelLang = new BroadcastChannel("settingsLang");
+
     let arrWithTextEng = [
         'Normal people plant trees, and programmers build and bypass them.',
         'There are 10 types of people: who understand the binary number system and do not understand.',
@@ -21,14 +24,26 @@
         'Нормальні люди садять дерева, а програмісти будують і обходять їх.',
         'Є 10 типів людей: які розуміють двійкову систему числення і не розуміють.',
         'На чемпіонаті світу з логіки серед жінок виграла універсал із числових послідовностей з великим відривом.',
-        'Народна прикмета: Якщо програма о 09.00 ранку на роботі, значить, він там спав...',
+        'Народна прикмета: Якщо програміст о 09.00 ранку на роботі, значить, він там спав...',
         'Справжній програміст на запитання: «Чи не могли б ви це зробити...» Він відповість «ТАК», а потім подумає, як.'
     ]
     let calloutText = document.getElementById('callout-text');
     calloutText.innerHTML = arrWithTextEng[Math.floor(Math.random() * arrWithTextEng.length)];
 
+    channelLang.onmessage = (event) =>{
+        lang = event.data;
+        setText(event.data);
+    }
+
+    const setText = (lang) =>{
+        lang === 'en' ?
+            calloutText.innerHTML = arrWithTextEng[Math.floor(Math.random() * arrWithTextEng.length)]
+            :
+            calloutText.innerHTML = arrWithTextUkr[Math.floor(Math.random() * arrWithTextUkr.length)];
+    }
+
     setInterval(()=>{
-        calloutText.innerHTML = arrWithTextEng[Math.floor(Math.random() * arrWithTextEng.length)];
+        setText(lang)
     }, 15000)
 </script>
 </body>

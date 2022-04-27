@@ -54,6 +54,7 @@
     }
     const channelImg = new BroadcastChannel("settingsImg");
     const channelSound = new BroadcastChannel("settingsSound");
+    const channelLang = new BroadcastChannel('settingsLang');
 
     const {ipcRenderer} = require('electron')
 
@@ -90,6 +91,7 @@
     let coolBtn = document.getElementById('cool')
 
     let languageChange = (element) => {
+        channelLang.postMessage("settingsLang", element.id);
         if(element.id === 'uk'){
             title.textContent = "Налаштування качки"
             moodTitle.textContent = "Настрій"

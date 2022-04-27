@@ -11,6 +11,7 @@ let duckWindow = undefined
 let tray = undefined
 let window = undefined
 let calloutWindow = undefined
+let lang = 'EN';
 
 const createDuckWindow = () => {
     duckWindow = new BrowserWindow({
