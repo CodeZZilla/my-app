@@ -31,6 +31,72 @@ img {
   height: 9.5rem;
   animation: rubber-ducky 10s infinite linear;
 }
+/*.callout{*/
+/*  width: 245px;*/
+/*  height: 200px;*/
+/*  position: relative;*/
+/*}*/
+/*.callout-img{*/
+/*  width: inherit;*/
+/*  height: inherit;*/
+/*}*/
+/*.callout-text{*/
+/*  position: absolute;*/
+/*  width: 230px;*/
+/*  height: inherit;*/
+/*  padding: 10px 80px 20px 20px;*/
+/*  left: 0px;*/
+/*  top: 0px;*/
+/*  font-size: .8rem;*/
+/*}*/
+
+body {
+  font-family: Helvetica;
+  font-size: 13px;
+}
+
+
+div.callout {
+  /*height: 60px;*/
+  max-height: 75px;
+  width: 160px;
+  float: left;
+  top: -25px;
+  left:-20px;
+  animation: callout-anim 10s infinite linear;
+}
+
+div.callout {
+  background-color: #f6f6f6;
+  background-image: -moz-linear-gradient(top, #f8f8f8, #f3f3f3);
+  position: relative;
+  color: #4b4b4b;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(215, 215, 215, 0.21);
+  /*margin: 25px;*/
+  min-height: 55px;
+  border: 1px solid #dedede;
+  /*text-shadow: 0 0 1px #000;*/
+
+  /*box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset;*/
+}
+
+.callout::before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  border: 0.8em solid transparent;
+  position: absolute;
+}
+
+.callout.top-left::before {
+  left: 7px;
+  bottom: -20px;
+  border-top: 10px solid #F3F3F3FF;
+}
+
+
 @keyframes rubber-ducky {
   0% {
     bottom: 0;
@@ -74,5 +140,52 @@ img {
   }
   100% {
     transform: translateX(0) rotateY(0deg) rotate(0deg);
+  }
+}
+@keyframes callout-anim {
+  0% {
+    /*bottom: 0;*/
+
+  }
+  10% {
+    /*bottom: -1rem;*/
+
+    transform: translateX(1rem);
+  }
+  20% {
+    transform: translateX(3rem) ;
+  }
+  30% {
+    /*bottom: 1rem;*/
+  }
+  40% {
+    transform: translateX(4rem);
+  }
+  47% {
+    transform: translateX(6rem) ;
+    /*background-color: white;*/
+  }
+  50% {
+    /*bottom: -1rem;*/
+    transform: translateX(7rem) ;
+  }
+  60% {
+    transform: translateX(6rem) ;
+  }
+  70% {
+    transform: translateX(4rem) ;
+  }
+  80% {
+    /*bottom: 0;*/
+    transform: translateX(2rem) ;
+  }
+  90% {
+    transform: translateX(1rem) ;
+  }
+  97% {
+    /*transform: rotateY(180deg);*/
+  }
+  100% {
+    transform: translateX(0) ;
   }
 }

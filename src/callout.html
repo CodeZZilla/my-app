@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Duck</title>
+    <link rel="stylesheet" href="index.css"/>
+</head>
+<body>
+<div class="callout_wrapper">
+    <div class="callout top-left callout-text" id="callout-text">Your Favourite HTML,CSS,JS Playground!</div>
+</div>
+<script>
+    let arrWithTextEng = [
+        'Normal people plant trees, and programmers build and bypass them.',
+        'There are 10 types of people: who understand the binary number system and do not understand.',
+        'At the World Women\'s Logic Championship was won by the generalist of number sequences with a big ret.',
+        'Folk sign: If the program is at 09.00 in the morning at work, then he slept there...',
+        'A real programmer to the question: - "Could you do it..." He\'ll answer, "YES," and then he\'ll think about how.'
+    ]
+    let arrWithTextUkr = [
+        'Нормальні люди садять дерева, а програмісти будують і обходять їх.',
+        'Є 10 типів людей: які розуміють двійкову систему числення і не розуміють.',
+        'На чемпіонаті світу з логіки серед жінок виграла універсал із числових послідовностей з великим відривом.',
+        'Народна прикмета: Якщо програма о 09.00 ранку на роботі, значить, він там спав...',
+        'Справжній програміст на запитання: «Чи не могли б ви це зробити...» Він відповість «ТАК», а потім подумає, як.'
+    ]
+    let calloutText = document.getElementById('callout-text');
+    calloutText.innerHTML = arrWithTextEng[Math.floor(Math.random() * arrWithTextEng.length)];
+
+    setInterval(()=>{
+        calloutText.innerHTML = arrWithTextEng[Math.floor(Math.random() * arrWithTextEng.length)];
+    }, 15000)
+</script>
+</body>
+</html>

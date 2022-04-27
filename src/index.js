@@ -10,7 +10,7 @@ const assetsDirectory = path.join(__dirname, 'assets')
 let duckWindow = undefined
 let tray = undefined
 let window = undefined
-
+let calloutWindow = undefined
 
 const createDuckWindow = () => {
     duckWindow = new BrowserWindow({
@@ -23,16 +23,45 @@ const createDuckWindow = () => {
         width: 300,
         height: 200,
         x: 0,
-        y: 0,
+        y: 100,
         minimizable: false,
         webPreferences: {
             nodeIntegration: true
         }
     })
     duckWindow.setAlwaysOnTop(true, "screen-saver");
-    duckWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen:true})
-    duckWindow.loadFile(path.join(__dirname, 'index.html'))
+    duckWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen:true});
+    duckWindow.loadFile(path.join(__dirname, 'index.html'));
+    duckWindow.on('move', (e)=>{
+        duckWindow.transparent = false;
+
+        calloutWindow.x = duckWindow.x +70;
+        calloutWindow.y = duckWindow.y - 100;
+    })
 };
+
+const createCalloutWindow = () => {
+    calloutWindow = new BrowserWindow({
+        frame: 0,
+        hasShadow: false,
+        transparent: true,
+        backgroundColor: "rgba(255,0,0,0)",
+        autoHideMenuBar: true,
+        resizable: false,
+        width: 350,
+        height: 115,
+        x: 70,
+        y: 0,
+        minimizable: false,
+        webPreferences: {
+            nodeIntegration: true
+        }
+    })
+    // calloutWindow.setAlwaysOnTop(true, "screen-saver");
+    calloutWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen:true})
+    calloutWindow.loadFile(path.join(__dirname, 'callout.html'))
+}
+
 
 app.dock.hide()
 
@@ -40,6 +69,7 @@ app.on('ready', () => {
     createDuckWindow()
     createTray()
     createWindowSettings()
+    createCalloutWindow()
 })
 
 app.on('window-all-closed', () => {
@@ -54,13 +84,14 @@ app.on('activate', () => {
     }
 })
 
+
+
 const createTray = () => {
     tray = new Tray(path.join(assetsDirectory, 'duck-icon.png'))
     tray.on('right-click', toggleWindow)
     tray.on('double-click', toggleWindow)
     tray.on('click', function (event) {
         toggleWindow()
-
         // Show devtools when command clicked
         if (window.isVisible() && process.defaultApp && event.metaKey) {
             window.openDevTools({mode: 'detach'})
@@ -119,6 +150,7 @@ const toggleWindow = () => {
     }
 }
 
+
 const showWindow = () => {
     const position = getWindowPosition()
     window.setPosition(position.x, position.y, false)
@@ -133,7 +165,25 @@ ipcMain.on('show-window', () => {
 ipcMain.on('duck-window-status', (event, json) => {
     if (duckWindow.isVisible()) {
         duckWindow.hide()
+        calloutWindow.hide()
+        let showAndHideCallout = setInterval(()=>{
+            if (calloutWindow.isVisible()) {
+                calloutWindow.hide()
+            } else {
+                calloutWindow.show()
+            }
+        },15000)
     } else {
         duckWindow.show()
+        calloutWindow.show()
+        clearInterval(showAndHideCallout);
     }
 });
+
+let showAndHideCallout = setInterval(()=>{
+    if (calloutWindow.isVisible()) {
+        calloutWindow.hide()
+    } else {
+        calloutWindow.show()
+    }
+},15000)
