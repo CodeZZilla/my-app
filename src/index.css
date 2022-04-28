@@ -29,6 +29,9 @@ img {
   position: relative;
   width: 10rem;
   height: 9.5rem;
+
+  /*height: 100%;*/
+  /*width: auto;*/
   animation: rubber-ducky 10s infinite linear;
 }
 /*.callout{*/
@@ -55,7 +58,9 @@ body {
   font-size: 13px;
 }
 
-
+.wrapper{
+  display: flex;
+}
 div.callout {
   /*height: 60px;*/
   max-height: 75px;

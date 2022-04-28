@@ -10,21 +10,20 @@ const assetsDirectory = path.join(__dirname, 'assets')
 let duckWindow = undefined
 let tray = undefined
 let window = undefined
-let calloutWindow = undefined
-let lang = 'EN';
+// let calloutWindow = undefined
 
 const createDuckWindow = () => {
     duckWindow = new BrowserWindow({
         frame: 0,
         hasShadow: false,
-        transparent: true,
+        transparent: false,
         backgroundColor: "rgba(255,0,0,0)",
         autoHideMenuBar: true,
         resizable: false,
         width: 300,
         height: 200,
         x: 0,
-        y: 100,
+        y: 0,
         minimizable: false,
         webPreferences: {
             nodeIntegration: true
@@ -33,35 +32,37 @@ const createDuckWindow = () => {
     duckWindow.setAlwaysOnTop(true, "screen-saver");
     duckWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen:true});
     duckWindow.loadFile(path.join(__dirname, 'index.html'));
-    duckWindow.on('move', (e)=>{
-        duckWindow.transparent = false;
-
-        calloutWindow.x = duckWindow.x +70;
-        calloutWindow.y = duckWindow.y - 100;
-    })
+    // duckWindow.on('move', (e)=>{
+    //     //для теста
+    //     duckWindow.transparent = false;
+    //
+    //     //должно по факту произойти
+    //     calloutWindow.x = duckWindow.x +70;
+    //     calloutWindow.y = duckWindow.y - 100;
+    // })
 };
 
-const createCalloutWindow = () => {
-    calloutWindow = new BrowserWindow({
-        frame: 0,
-        hasShadow: false,
-        transparent: true,
-        backgroundColor: "rgba(255,0,0,0)",
-        autoHideMenuBar: true,
-        resizable: false,
-        width: 350,
-        height: 115,
-        x: 70,
-        y: 0,
-        minimizable: false,
-        webPreferences: {
-            nodeIntegration: true
-        }
-    })
-    // calloutWindow.setAlwaysOnTop(true, "screen-saver");
-    calloutWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen:true})
-    calloutWindow.loadFile(path.join(__dirname, 'callout.html'))
-}
+// const createCalloutWindow = () => {
+//     calloutWindow = new BrowserWindow({
+//         frame: 0,
+//         hasShadow: false,
+//         transparent: true,
+//         backgroundColor: "rgba(255,0,0,0)",
+//         autoHideMenuBar: true,
+//         resizable: false,
+//         width: 350,
+//         height: 115,
+//         x: 70,
+//         y: 0,
+//         minimizable: false,
+//         webPreferences: {
+//             nodeIntegration: true
+//         }
+//     })
+//     calloutWindow.setAlwaysOnTop(true, "screen-saver");
+//     calloutWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen:true})
+//     calloutWindow.loadFile(path.join(__dirname, 'callout.html'))
+// }
 
 
 app.dock.hide()
@@ -70,7 +71,7 @@ app.on('ready', () => {
     createDuckWindow()
     createTray()
     createWindowSettings()
-    createCalloutWindow()
+    // createCalloutWindow()
 })
 
 app.on('window-all-closed', () => {
@@ -163,28 +164,36 @@ ipcMain.on('show-window', () => {
     showWindow()
 })
 
+ipcMain.on('show-callout', (event, json) => {
+    duckWindow.hide()
+
+    duckWindow.width === 300 ? duckWindow.setBounds({ width: 600 }) : duckWindow.setBounds({ width: 300 });
+
+    // calloutWindow.isVisible() ? calloutWindow.hide() : calloutWindow.show()
+})
+
 ipcMain.on('duck-window-status', (event, json) => {
     if (duckWindow.isVisible()) {
         duckWindow.hide()
-        calloutWindow.hide()
-        let showAndHideCallout = setInterval(()=>{
-            if (calloutWindow.isVisible()) {
-                calloutWindow.hide()
-            } else {
-                calloutWindow.show()
-            }
-        },15000)
+        // calloutWindow.hide()
+        // let showAndHideCallout = setInterval(()=>{
+        //     if (calloutWindow.isVisible()) {
+        //         calloutWindow.hide()
+        //     } else {
+        //         calloutWindow.show()
+        //     }
+        // },15000)
     } else {
         duckWindow.show()
-        calloutWindow.show()
-        clearInterval(showAndHideCallout);
+        // calloutWindow.show()
+        // clearInterval(showAndHideCallout);
     }
 });
 
-let showAndHideCallout = setInterval(()=>{
-    if (calloutWindow.isVisible()) {
-        calloutWindow.hide()
-    } else {
-        calloutWindow.show()
-    }
-},15000)
+// let showAndHideCallout = setInterval(()=>{
+//     if (calloutWindow.isVisible()) {
+//         calloutWindow.hide()
+//     } else {
+//         calloutWindow.show()
+//     }
+// },15000)
