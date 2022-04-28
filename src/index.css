@@ -60,6 +60,8 @@ body {
 
 .wrapper{
   display: flex;
+  gap: 1.3rem;
+  align-items: center;
 }
 div.callout {
   /*height: 60px;*/
@@ -96,9 +98,11 @@ div.callout {
 }
 
 .callout.top-left::before {
-  left: 7px;
-  bottom: -20px;
-  border-top: 10px solid #F3F3F3FF;
+  /*left: 7px;*/
+  /*bottom: -20px;*/
+  left: -20px;
+  top: 40%;
+  border-right: 10px solid #F3F3F3FF;
 }
 
 
