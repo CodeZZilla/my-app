@@ -16,17 +16,19 @@ const createDuckWindow = () => {
     duckWindow = new BrowserWindow({
         frame: 0,
         hasShadow: false,
-        transparent: false,
+        transparent: true,
         backgroundColor: "rgba(255,0,0,0)",
         autoHideMenuBar: true,
         resizable: false,
-        width: 300,
+        width: 450,
         height: 200,
         x: 0,
         y: 0,
         minimizable: false,
         webPreferences: {
-            nodeIntegration: true
+            backgroundThrottling: false,
+            nodeIntegration: true,
+            contextIsolation: false
         }
     })
     duckWindow.setAlwaysOnTop(true, "screen-saver");
@@ -165,10 +167,10 @@ ipcMain.on('show-window', () => {
 })
 
 ipcMain.on('show-callout', (event, json) => {
-    duckWindow.hide()
-
-    duckWindow.width === 300 ? duckWindow.setBounds({ width: 600 }) : duckWindow.setBounds({ width: 300 });
-
+    // duckWindow.hide()
+    // duckWindow.width == 300 ?
+    //     duckWindow.setSize(300, 200) :  duckWindow.setSize(500, 200);
+    duckWindow.setSize(json.size, 200);
     // calloutWindow.isVisible() ? calloutWindow.hide() : calloutWindow.show()
 })
 

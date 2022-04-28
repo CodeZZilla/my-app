@@ -26,16 +26,22 @@
     let callout = document.getElementById('callout');
     audio.volume = .5
 
-
-
     duck.addEventListener('click', () => {
         audio.play();
     })
-    // const {ipcRenderer} = require('electron')
+
+     const {ipcRenderer} = require('electron')
 
     let showCallout = () =>{
-        callout.style.opacity === '1' ? callout.style.opacity = '0' : callout.style.opacity = '1';
-        ipcRenderer.send("show-callout", JSON.stringify(true));
+        let sizeInt = 0;
+        if(callout.style.opacity === '1' ){
+            callout.style.opacity = '0'
+            sizeInt = 300
+        }else{
+            callout.style.opacity = '1';
+            sizeInt = 450
+        }
+        ipcRenderer.send("show-callout", {size: sizeInt});
     }
 
     const channelImg = new BroadcastChannel("settingsImg");

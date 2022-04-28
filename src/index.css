@@ -23,11 +23,11 @@ body {
 
 img {
   height: 100%;
-  width: auto;
+  /*width: auto;*/
 }
 .duck {
   position: relative;
-  width: 10rem;
+  /*width: 10rem;*/
   height: 9.5rem;
 
   /*height: 100%;*/
