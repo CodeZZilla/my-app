@@ -20,7 +20,7 @@ const createDuckWindow = () => {
         backgroundColor: "rgba(255,0,0,0)",
         autoHideMenuBar: true,
         resizable: false,
-        width: 450,
+        width: 500,
         height: 200,
         x: 0,
         y: 0,

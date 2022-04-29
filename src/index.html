@@ -11,7 +11,7 @@
     <audio id="krik" preload="auto" src="krik.mp3"></audio>
 
     <div class="callout_wrapper" id="callout">
-        <div class="callout top-left callout-text" id="callout-text">Your Favourite HTML,CSS,JS Playground!</div>
+        <div class="callout right callout-text" id="callout-text">Your Favourite HTML,CSS,JS Playground!</div>
     </div>
 
 </div>
@@ -39,7 +39,7 @@
             sizeInt = 300
         }else{
             callout.style.opacity = '1';
-            sizeInt = 450
+            sizeInt = 500
         }
         ipcRenderer.send("show-callout", {size: sizeInt});
     }

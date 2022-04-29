@@ -97,11 +97,46 @@ div.callout {
   position: absolute;
 }
 
-.callout.top-left::before {
-  /*left: 7px;*/
-  /*bottom: -20px;*/
+.callout.top::before {
+  left: 45%;
+  bottom: -20px;
+  border-top: 10px solid #F3F3F3FF;
+}
+
+.callout.bottom::before {
+  left: 45%;
+  top: -20px;
+  border-bottom: 10px solid #F3F3F3FF;
+}
+
+.callout.left::before {
+  right: -20px;
+  top: 40%;
+  border-left: 10px solid #F3F3F3FF;
+}
+
+.callout.right::before {
   left: -20px;
   top: 40%;
+  border-right: 10px solid #F3F3F3FF;
+}
+
+.callout.top-left::before {
+  left: 7px;
+  bottom: -20px;
+  border-top: 10px solid #F3F3F3FF;
+}
+
+.callout.top-right::before {
+  right: 7px;
+  bottom: -20px;
+  border-top: 10px solid #F3F3F3FF;
+}
+.callout.top-left::before {
+  left: 7px;
+  bottom: -20px;
+  /*left: -20px;*/
+  /*top: 40%;*/
   border-right: 10px solid #F3F3F3FF;
 }
 
