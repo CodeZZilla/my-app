@@ -1,5 +1,8 @@
 const {app, BrowserWindow, ipcMain, Tray, ipcRenderer} = require('electron')
 const path = require('path')
+const Store = require('electron-store');
+const store = new Store();
+
 
 if (require('electron-squirrel-startup')) {
     app.quit();
@@ -74,6 +77,19 @@ app.on('ready', () => {
     createTray()
     createWindowSettings()
     // createCalloutWindow()
+
+    let sendObj = JSON.stringify({
+        mood: store.get('mood'),
+        language: store.get('language'),
+        sound: store.get('sound')
+    })
+    window.webContents.on('did-finish-load', () => {
+        window.webContents.send('save-settings', sendObj);
+    });
+
+    duckWindow.webContents.on('did-finish-load', () => {
+        duckWindow.webContents.send('save-settings', sendObj)
+    })
 })
 
 app.on('window-all-closed', () => {
@@ -87,8 +103,6 @@ app.on('activate', () => {
         createDuckWindow()
     }
 })
-
-
 
 const createTray = () => {
     tray = new Tray(path.join(assetsDirectory, 'duck-icon.png'))
@@ -154,7 +168,6 @@ const toggleWindow = () => {
     }
 }
 
-
 const showWindow = () => {
     const position = getWindowPosition()
     window.setPosition(position.x, position.y, false)
@@ -192,6 +205,17 @@ ipcMain.on('duck-window-status', (event, json) => {
     }
 });
 
+ipcMain.on('change-mood-store', (event, json) => {
+    store.set('mood', json);
+})
+
+ipcMain.on('change-sound-store', (event, json) => {
+    store.set('sound', json);
+})
+
+ipcMain.on('change-language-store', (event, json) => {
+    store.set('language', json);
+})
 // let showAndHideCallout = setInterval(()=>{
 //     if (calloutWindow.isVisible()) {
 //         calloutWindow.hide()
