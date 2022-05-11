@@ -132,12 +132,12 @@ const getWindowPosition = () => {
 
 const createWindowSettings = () => {
     window = new BrowserWindow({
-        width: 355, //355
-        height: 450,
+        width: 315, //355
+        height: 700,
         show: false,
         frame: false,
         resizable: false,
-        backgroundColor: "rgb(255,255,255)",
+        backgroundColor: "rgba(255,255,255,0)",
         transparent: true,
         fullscreen: false,
         webPreferences: {
@@ -149,7 +149,7 @@ const createWindowSettings = () => {
     })
     window.setAlwaysOnTop(true, "screen-saver");
     window.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen:true})
-    //window.webContents.openDevTools();
+    // window.webContents.openDevTools();
     window.loadURL(`file://${path.join(__dirname, 'settings.html')}`)
 
     // Скрыть окно, когда оно теряет фокус
