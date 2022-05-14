@@ -25,13 +25,20 @@ img {
   height: 100%;
   /*width: auto;*/
 }
+#wrapper{
+  transition: opacity .2s ease-in-out;
+}
 .duck {
   position: relative;
   /*width: 10rem;*/
   height: 9.5rem;
+  transition: all 1s ease-in-out;
 
   /*height: 100%;*/
   /*width: auto;*/
+}
+
+.walking-duck{
   animation: rubber-ducky 10s infinite linear;
 }
 /*.callout{*/
@@ -65,11 +72,15 @@ body {
 }
 div.callout {
   /*height: 60px;*/
-  max-height: 75px;
-  width: 160px;
+  max-height: 50px;
+  /*width: 90px;*/
+  max-width: 90px;
   float: left;
-  top: -25px;
+  top: -15px;
   left:-20px;
+  transition: all 1s ease-in-out;
+}
+.callout_walking{
   animation: callout-anim 10s infinite linear;
 }
 
@@ -79,11 +90,13 @@ div.callout {
   position: relative;
   color: #4b4b4b;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 15px;
   box-shadow: 0px 0px 10px rgba(215, 215, 215, 0.21);
   /*margin: 25px;*/
-  min-height: 55px;
+  min-height: 25px;
+  min-width: 25px;
   border: 1px solid #dedede;
+  transition: all 1s ease-in-out;
   /*text-shadow: 0 0 1px #000;*/
 
   /*box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset;*/
@@ -117,7 +130,7 @@ div.callout {
 
 .callout.right::before {
   left: -20px;
-  top: 40%;
+  top: 30%;
   border-right: 10px solid #F3F3F3FF;
 }
 

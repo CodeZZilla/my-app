@@ -6,12 +6,12 @@
     <link rel="stylesheet" href="index.css"/>
 </head>
 <body>
-<div class="wrapper">
-    <img id="duck" class="duck" src="assets/ducks/duck.png" ondblclick="showCallout()">
+<div class="wrapper" id="wrapper">
+    <img id="duck" class="duck walking-duck" src="assets/ducks/duck.png">
     <audio id="krik" preload="auto" src="krik.mp3"></audio>
 
-    <div class="callout_wrapper" id="callout">
-        <div class="callout right callout-text" id="callout-text">Your Favourite HTML,CSS,JS Playground!</div>
+    <div class="callout_wrapper callout_walking" id="callout">
+        <div class="callout right callout-text" id="callout-text">Just google it!</div>
     </div>
 
 </div>
@@ -19,11 +19,21 @@
 <!--<script src="./preloadSettings.js"></script>-->
 <script>
     let lang = 'en';
+    let talkingDuck = true;
+    let arrWithTextEng = [
+        'Just google it.',
+    ]
+    let arrWithTextUkr = [
+        'Просто загугли.',
+    ]
+
+    let wrapper = document.getElementById('wrapper')
     let duck = document.getElementById('duck')
     let audio = document.getElementById("krik");
     let calloutText = document.getElementById('callout-text');
     let callout = document.getElementById('callout');
     audio.volume = .5
+    wrapper.style.opacity = 1
 
     duck.addEventListener('click', () => {
         audio.play();
@@ -49,7 +59,13 @@
         setText(settings.language);
 
         audio.volume = settings.sound / 100
+        wrapper.style.opacity = settings.opacity / 100
+
+        talkingDuck = settings.talking;
+
+
     })
+    callout.style.opacity = '0'
 
     let showCallout = () => {
         let sizeInt = 0;
@@ -58,15 +74,27 @@
             sizeInt = 300
         } else {
             callout.style.opacity = '1';
-            sizeInt = 500
+            sizeInt = 415
         }
         ipcRenderer.send("show-callout", {size: sizeInt});
     }
 
     const channelImg = new BroadcastChannel("settingsImg");
     const channelSound = new BroadcastChannel("settingsSound");
+    const channelOpacity = new BroadcastChannel("settingsOpacity");
     const channelLang = new BroadcastChannel("settingsLang");
+    const channelWalkingDuck = new BroadcastChannel('channelWalkingDuck');
+    const channelTalkingDuck = new BroadcastChannel('channelTalkingDuck');
 
+    channelWalkingDuck.onmessage = (event) =>{
+        if(event.data){
+            duck.className = 'duck walking-duck'
+            callout.className = 'callout_wrapper callout_walking'
+        }else{
+            duck.className = 'duck non-walking'
+            callout.className = 'callout_wrapper non-walking'
+        }
+    }
 
     channelImg.onmessage = (event) => {
         duck.src = event.data
@@ -77,23 +105,9 @@
         audio.play();
     }
 
-
-    let arrWithTextEng = [
-        'Normal people plant trees, and programmers build and bypass them.',
-        'There are 10 types of people: who understand the binary number system and do not understand.',
-        'At the World Women\'s Logic Championship was won by the generalist of number sequences with a big ret.',
-        'Folk sign: If the program is at 09.00 in the morning at work, then he slept there...',
-        'A real programmer to the question: - "Could you do it..." He\'ll answer, "YES," and then he\'ll think about how.'
-    ]
-    let arrWithTextUkr = [
-        'Нормальні люди садять дерева, а програмісти будують і обходять їх.',
-        'Є 10 типів людей: які розуміють двійкову систему числення і не розуміють.',
-        'На чемпіонаті світу з логіки серед жінок виграла універсал із числових послідовностей з великим відривом.',
-        'Народна прикмета: Якщо програміст о 09.00 ранку на роботі, значить, він там спав...',
-        'Справжній програміст на запитання: «Чи не могли б ви це зробити...» Він відповість «ТАК», а потім подумає, як.'
-    ]
-
-    calloutText.innerHTML = arrWithTextEng[Math.floor(Math.random() * arrWithTextEng.length)];
+    channelOpacity.onmessage = (event) => {
+        wrapper.style.opacity = event.data
+    }
 
     // setText(lang);
     channelLang.onmessage = (event) => {
@@ -101,16 +115,31 @@
         setText(event.data);
     }
 
+    channelTalkingDuck.onmessage = (e)=>{
+        talkingDuck = e.data;
+    }
+
     const setText = (lang) => {
+        console.log(lang)
         lang === 'en' ?
             calloutText.innerHTML = arrWithTextEng[Math.floor(Math.random() * arrWithTextEng.length)]
             :
             calloutText.innerHTML = arrWithTextUkr[Math.floor(Math.random() * arrWithTextUkr.length)];
     }
 
+    // setInterval(() => {
+    //     setText(lang)
+    // }, 15000)
+
+
     setInterval(() => {
-        setText(lang)
-    }, 15000)
+        if(talkingDuck){
+            setText(lang)
+            showCallout(lang)
+            setTimeout(()=>{showCallout(lang)},10000)
+        }
+    }, 1500000)
+
 </script>
 
 </body>

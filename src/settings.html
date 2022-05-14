@@ -19,13 +19,10 @@
             <div class="card-content">
 <!--                <div class="card-subtitle">Style</div>-->
 <!--                <p class="card-desc">Whatever tattooed stumptown art party sriracha gentrify hashtag intelligentsia readymade schlitz brooklyn disrupt.-->
-                </p>
+<!--                </p>-->
                 <div class="style"></div>
                 <div class="style-wrapper">
-                    <div class="style-card-wrapper style-active" onclick="setDuck(this)">
-                        <img class="style-img" src="assets/ducks/duck.png" alt="">
-                    </div>
-                    <div class="style-card-wrapper" id="simple" onclick="setDuck(this)">
+                    <div class="style-card-wrapper style-active" id="simple" onclick="setDuck(this)">
                         <img class="style-img" src="assets/ducks/duck.png" alt="">
                     </div>
                     <div class="style-card-wrapper" id="cool" onclick="setDuck(this)">
@@ -34,20 +31,23 @@
                     <div class="style-card-wrapper" id="realistic" onclick="setDuck(this)">
                         <img class="style-img" src="assets/ducks/83e4a943664a198eb141cd46d6e36b21.png" alt="">
                     </div>
-                    <div class="style-card-wrapper" id="simple1" onclick="setDuck(this)">
-                        <img class="style-img" src="assets/ducks/duck.png" alt="">
+                    <div class="style-card-wrapper" id="lilalu1" onclick="setDuck(this)">
+                        <img class="style-img" src="assets/ducks/lilalu-quietscheente-al-capo-HR.png" alt="">
                     </div>
-                    <div class="style-card-wrapper" id="simple2" onclick="setDuck(this)">
-                        <img class="style-img" src="assets/ducks/duck_PNG5011.png" alt="">
+                    <div class="style-card-wrapper" id="lilalu2" onclick="setDuck(this)">
+                        <img class="style-img" src="assets/ducks/lilalu-quietscheente-barkeeper-rubber-duck-HR_436x436.png" alt="">
                     </div>
-                    <div class="style-card-wrapper" id="simple3" onclick="setDuck(this)">
-                        <img class="style-img" src="assets/ducks/83e4a943664a198eb141cd46d6e36b21.png" alt="">
+                    <div class="style-card-wrapper" id="paparazzi" onclick="setDuck(this)">
+                        <img class="style-img" src="assets/ducks/Paparazzi-Press-Media-Rubber-Duck-BudUSA-4__45420.1576269236.jpg" alt="">
                     </div>
-                    <div class="style-card-wrapper" id="simple4" onclick="setDuck(this)">
-                        <img class="style-img" src="assets/ducks/duck.png" alt="">
+                    <div class="style-card-wrapper" id="pixel" onclick="setDuck(this)">
+                        <img class="style-img" src="assets/ducks/pixel-yellow-duck-vector-21513825.jpg" alt="">
                     </div>
-                    <div class="style-card-wrapper style-pro" id="pro" onclick="setDuck(this)">
-                        <img class="style-img" src="assets/ducks/duck_PNG5011.png" alt="">
+                    <div class="style-card-wrapper" id="unicorn" onclick="setDuck(this)">
+                        <img class="style-img" src="assets/ducks/png_transparent_unicorn_duck_rubber_duck_bath_toy_bridegroom_lilalu.png" alt="">
+                    </div>
+                    <div class="style-card-wrapper style-pro" id="piracy" onclick="setDuck(this)">
+                        <img class="style-img" src="assets/ducks/rubber_duck_piracy_natural_rubber_png_favpng_62gK31QvdbjEGxWBqaLRNJ06c.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@
                     <div class="setting-group">
                         <p id="duck-walking-label">Duck Walking</p>
                         <div class="switch">
-                            <input id="duck-walking" type="checkbox" checked >
+                            <input id="duck-walking" type="checkbox" checked onchange="duckWalking(this)">
                             <label for="duck-walking"></label>
                         </div>
                     </div>
@@ -76,16 +76,24 @@
                     <div class="setting-group">
                         <p id="duck-talking-label">Duck Talking</p>
                         <div class="switch">
-                            <input id="duck-talking" type="checkbox" checked >
+                            <input id="duck-talking" type="checkbox" checked onchange="duckTalking(this)">
                             <label for="duck-talking"></label>
                         </div>
                     </div>
 
+<!--                    <div class="setting-group">-->
+<!--                        <p id="duck-speaking-label">Speaking with duck</p>-->
+<!--                        <div class="switch">-->
+<!--                            <input id="duck-speaking" type="checkbox" checked >-->
+<!--                            <label for="duck-speaking"></label>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
                     <div class="setting-group">
-                        <p id="duck-speaking-label">Speaking with duck</p>
+                        <p id="small-mode-label">Small mode</p>
                         <div class="switch">
-                            <input id="duck-speaking" type="checkbox" checked >
-                            <label for="duck-speaking"></label>
+                            <input id="small-mode" type="checkbox" checked >
+                            <label for="small-mode"></label>
                         </div>
                     </div>
 
@@ -99,9 +107,13 @@
 
                     <div class="setting-group">
                         <p>Sound</p>
-                        <input onchange="changeSound()" class="duck-sound input-range" id="duck" name="size-icon" type="range" min="0" max="100">
+                        <label for="sound"></label><input onchange="changeSound()" class="duck-sound input-range" id="sound" name="size-icon" type="range" min="0" max="100"/>
                     </div>
 
+                    <div class="setting-group">
+                        <p>Opacity</p>
+                        <label for="opacity"></label><input onchange="changeOpacity()" class="duck-sound input-range" id="opacity" name="size-icon" type="range" min="0" max="100"/>
+                    </div>
 
                     <div class="segmented-control">
 
@@ -115,21 +127,7 @@
 
                         <div class="segmented-control__color"></div>
                     </div>
-
-<!--                    <div class="segmented-control">-->
-
-<!--                        <input type="radio" name="radio2" value="3" id="en" checked />-->
-<!--                        <label for="en" class="segmented-control__1">-->
-<!--                            <p>English</p></label>-->
-
-<!--                        <input type="radio" name="radio2" value="4" id="uk" />-->
-<!--                        <label for="uk" class="segmented-control__2">-->
-<!--                            <p>Українська</p></label>-->
-
-<!--                        <div class="segmented-control__color"></div>-->
-<!--                    </div>-->
 <!--                    <button class="contact-me">Save changes</button>-->
-
                 </div>
             </div>
         </div>
@@ -182,42 +180,6 @@
     </div>
 </div>
 
-<!--<div class="card wrapper">-->
-<!--    <div class="header">-->
-<!--        <div class="header-title">-->
-<!--            <img class="logo" src="assets/duck-icon.png" alt="">-->
-<!--            <h3 id="title">Duck Settings</h3>-->
-<!--        </div>-->
-<!--        <label class="switch">-->
-<!--            <input id="duck-view" type="checkbox" checked onchange="duckView(this)">-->
-<!--            <span class="slider round"></span>-->
-<!--        </label>-->
-<!--    </div>-->
-<!--    <div class="body__wrapper">-->
-<!--        <div class="body">-->
-
-<!--            <p id="mood-title">Mood</p>-->
-<!--            <div class="p-segmented-controls" id="mood">-->
-<!--                <a id="standart" onclick="setDuck(this)" href="#">Standart</a>-->
-<!--                <a id="realistic" onclick="setDuck(this)" href="#">Realistic</a>-->
-<!--                <a id="cool" onclick="setDuck(this)" href="#">Cool</a>-->
-<!--            </div>-->
-<!--            <hr>-->
-
-<!--            <p id="language-title">Language</p>-->
-<!--            <div class="p-segmented-controls">-->
-<!--                <a id="en" href="#" onclick="languageChange(this)">English</a>-->
-<!--                <a id="uk" href="#" onclick="languageChange(this)">Українська</a>-->
-<!--            </div>-->
-<!--            <hr>-->
-
-<!--            <p id="sound-title">Sound</p>-->
-<!--            <input id="sound" type="range" min="0" max="100" onchange="changeSound()" class="p-form-range">-->
-
-<!--            <button id="btn-donut" class="p-btn">Go to Web site</button>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
@@ -245,7 +207,6 @@
 </script>
 <script>
     let mainDuckImg = document.getElementById('card-avatar');
-    let langButtons = document.getElementsByName('langRadio');
 
     let styleBtn = document.getElementById('style-btn');
     let preferencesBtn = document.getElementById('preferences-btn');
@@ -254,16 +215,15 @@
 
     const channelImg = new BroadcastChannel("settingsImg");
     const channelSound = new BroadcastChannel("settingsSound");
+    const channelOpacity = new BroadcastChannel("settingsOpacity");
     const channelLang = new BroadcastChannel('settingsLang');
+    const channelWalkingDuck = new BroadcastChannel('channelWalkingDuck');
+    const channelTalkingDuck = new BroadcastChannel('channelTalkingDuck');
 
     const {ipcRenderer} = require('electron')
 
-    let languageChange = (element) => {
-        console.log('langChange')
-
-        channelLang.postMessage("settingsLang", element.value);
-        ipcRenderer.send('change-language-store', element.value);
-        if (element.value === 'uk') {
+    let setLanguageInterface = (lang)=>{
+        if (lang === 'uk') {
             styleBtn.textContent = "СТИЛЬ"
             preferencesBtn.textContent = 'НАЛАШТУВАННЯ'
             contactBtn.textContent = 'КОНТАКТ'
@@ -272,10 +232,10 @@
             document.getElementById('duck-view-text').textContent = 'Видимість Качки'
             document.getElementById('duck-walking-label').textContent = 'Качині прогулянки'
             document.getElementById('duck-talking-label').textContent = 'Качка розмовляє'
-            document.getElementById('duck-speaking-label').textContent = 'Спілкування з Качкою'
+            // document.getElementById('duck-speaking-label').textContent = 'Спілкування з Качкою'
             document.getElementById('app-autorun-label').textContent = 'Автозапуск'
             document.getElementById('website-btn').textContent = 'Веб-сайт'
-        } else if (element.value === 'en') {
+        } else if (lang === 'en') {
             styleBtn.textContent = "STYLE"
             preferencesBtn.textContent = 'PREFERENCES'
             contactBtn.textContent = 'CONTACT'
@@ -284,98 +244,79 @@
             document.getElementById('duck-view-text').textContent = 'Duck View'
             document.getElementById('duck-walking-label').textContent = 'Duck Walking'
             document.getElementById('duck-talking-label').textContent = 'Duck Talking'
-            document.getElementById('duck-speaking-label').textContent = 'Speaking with Duck'
+            // document.getElementById('duck-speaking-label').textContent = 'Speaking with Duck'
             document.getElementById('app-autorun-label').textContent = 'App autorun'
             document.getElementById('website-btn').textContent = 'WEBSITE'
 
         }
     }
-    //
-    // let p_segmented_controls = document.querySelectorAll(".p-segmented-controls a");
-    //
-    // for (var item of p_segmented_controls) {
-    //     item.addEventListener("click", function (event) {
-    //         event.preventDefault();
-    //         console.log('lang')
-    //         this.parentElement.querySelector("a.active").classList.remove("active");
-    //         this.classList.add("active");
-    //         // languageChange(item.value)
-    //     });
-    // }
+    let languageChange = (element) => {
+        channelLang.postMessage(element.value);
+        ipcRenderer.send('change-language-store', element.value);
+        setLanguageInterface(element.value);
+    }
 
-    // for (var langButton of langButtons) {
-    //     if(langButton.checked){
-    //         languageChange(langButton.value)
-    //     }
-    //     // langButton.addEventListener('click', function (event) {
-    //     //     // event.preventDefault();
-    //     //     languageChange(langButton.value)
-    //     // })
-    // }
 
-    // ipcRenderer.on('save-settings', (event, data) => {
-    //     console.log(data)
-    //     let settings = JSON.parse(data)
-    //     document.getElementById('sound').value = Number(settings.sound)
-    //     switch (settings.mood) {
-    //         case "simple":
-    //             simpleBtn.classList.add('active')
-    //             break
-    //         case "realistic":
-    //             realisticBtn.classList.add('active')
-    //             break
-    //         case "cool":
-    //             coolBtn.classList.add('active')
-    //             break
-    //     }
-    //
-    //     if (settings.language === 'uk') {
-    //         document.getElementById('uk').classList.add('active')
-    //         title.textContent = "Налаштування качки"
-    //         moodTitle.textContent = "Настрій"
-    //         languageTitle.textContent = "Мова"
-    //         soundTitle.textContent = "Звук"
-    //         btnDonut.textContent = "Перейти на сайт"
-    //         simpleBtn.textContent = "Стандартна"
-    //         realisticBtn.textContent = "Реалістична"
-    //         coolBtn.textContent = "Крута"
-    //     } else if (settings.language === 'en') {
-    //         document.getElementById('en').classList.add('active')
-    //         title.textContent = "Duck Settings"
-    //         moodTitle.textContent = "Mood"
-    //         languageTitle.textContent = "Language"
-    //         soundTitle.textContent = "Sound"
-    //         btnDonut.textContent = "Go to Web site"
-    //         simpleBtn.textContent = "Standart"
-    //         realisticBtn.textContent = "Realistic"
-    //         coolBtn.textContent = "Cool"
-    //     }
-    // });
+    ipcRenderer.on('save-settings', (event, data) => {
+        console.log(data)
+        let settings = JSON.parse(data)
+        document.getElementById('sound').value = Number(settings.sound)
+        document.getElementById('opacity').value = Number(settings.opacity)
+        // loadDuck(settings.mood)
+        setDuck(settings.mood)
+        if (settings.language === 'uk') {
+            document.getElementsByName('langRadio')[0].checked = false;
+            document.getElementsByName('langRadio')[1].checked = true;
+        } else if (settings.language === 'en') {
+            document.getElementsByName('langRadio')[0].checked = true;
+            document.getElementsByName('langRadio')[1].checked = false;
+        }
+        setLanguageInterface(settings.language);
+        document.getElementById('duck-talking').checked = settings.talking
+    });
 
+    let ducks = [
+        {name: 'simple', src: 'assets/ducks/duck.png'},
+        {name: 'realistic', src: 'assets/ducks/duck_PNG5011.png'},
+        {name: 'cool', src: 'assets/ducks/83e4a943664a198eb141cd46d6e36b21.png'},
+        {name: 'lilalu1', src: 'assets/ducks/lilalu-quietscheente-al-capo-HR.png'},
+        {name: 'lilalu2', src: 'assets/ducks/lilalu-quietscheente-barkeeper-rubber-duck-HR_436x436.png'},
+        {name: 'paparazzi', src: 'assets/ducks/Paparazzi-Press-Media-Rubber-Duck-BudUSA-4__45420.1576269236.jpg'},
+        {name: 'pixel', src: 'assets/ducks/pixel-yellow-duck-vector-21513825.jpg'},
+        {name: 'unicorn', src: 'assets/ducks/png_transparent_unicorn_duck_rubber_duck_bath_toy_bridegroom_lilalu.png'},
+        {name: 'piracy', src: 'assets/ducks/rubber_duck_piracy_natural_rubber_png_favpng_62gK31QvdbjEGxWBqaLRNJ06c.jpg'}
+    ]
 
     let setDuck = (mood) => {
-        switch (mood.id) {
-            case "simple":
-                mainDuckImg.src = 'assets/ducks/duck.png';
-                ipcRenderer.send('change-mood-store', 'simple');
-                channelImg.postMessage("assets/ducks/duck.png");
-                break;
-            case "realistic":
-                mainDuckImg.src = 'assets/ducks/duck_PNG5011.png';
-                ipcRenderer.send('change-mood-store', 'realistic');
-                channelImg.postMessage("assets/ducks/duck_PNG5011.png");
-                break;
-            case "cool":
-                mainDuckImg.src = 'assets/ducks/83e4a943664a198eb141cd46d6e36b21.png';
-                ipcRenderer.send('change-mood-store', 'cool');
-                channelImg.postMessage("assets/ducks/83e4a943664a198eb141cd46d6e36b21.png");
-                break;
-            default:
-                mainDuckImg.src = 'assets/ducks/duck.png';
-                ipcRenderer.send('change-mood-store', 'simple');
-                channelImg.postMessage("assets/ducks/duck.png");
-                break;
+        for (let duck of ducks) {
+            if(mood.id===duck.name){
+                channelImg.postMessage(duck.src);
+                mainDuckImg.src = duck.src;
+                ipcRenderer.send('change-mood-store', duck.name);
+            }
         }
+        // switch (mood.id) {
+        //     case "simple":
+        //         mainDuckImg.src = 'assets/ducks/duck.png';
+        //         ipcRenderer.send('change-mood-store', 'simple');
+        //         channelImg.postMessage("assets/ducks/duck.png");
+        //         break;
+        //     case "realistic":
+        //         mainDuckImg.src = 'assets/ducks/duck_PNG5011.png';
+        //         ipcRenderer.send('change-mood-store', 'realistic');
+        //         channelImg.postMessage("assets/ducks/duck_PNG5011.png");
+        //         break;
+        //     case "cool":
+        //         mainDuckImg.src = 'assets/ducks/83e4a943664a198eb141cd46d6e36b21.png';
+        //         ipcRenderer.send('change-mood-store', 'cool');
+        //         channelImg.postMessage("assets/ducks/83e4a943664a198eb141cd46d6e36b21.png");
+        //         break;
+        //     default:
+        //         mainDuckImg.src = 'assets/ducks/duck.png';
+        //         ipcRenderer.send('change-mood-store', 'simple');
+        //         channelImg.postMessage("assets/ducks/duck.png");
+        //         break;
+        // }
     }
 
     let changeSound = () => {
@@ -384,8 +325,24 @@
         channelSound.postMessage(element.value / 100)
     }
 
+    let changeOpacity = () => {
+        let element = document.getElementById('opacity')
+        ipcRenderer.send('change-opacity-store', element.value);
+        channelOpacity.postMessage(element.value / 100)
+    }
+
     let duckView = (el) => {
         ipcRenderer.send("duck-window-status", JSON.stringify(true));
+    }
+
+    let duckWalking = (el) => {
+        channelWalkingDuck.postMessage(el.checked);
+    }
+
+    let duckTalking = (el) => {
+        // console.log(el.checked)
+        channelTalkingDuck.postMessage(el.checked);
+        ipcRenderer.send('change-talking-store', el.checked);
     }
 
 </script>

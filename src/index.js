@@ -22,8 +22,8 @@ const createDuckWindow = () => {
         transparent: true,
         backgroundColor: "rgba(255,0,0,0)",
         autoHideMenuBar: true,
-        resizable: false,
-        width: 500,
+        resizable: false, //set false
+        width: 415,
         height: 200,
         x: 0,
         y: 0,
@@ -35,6 +35,7 @@ const createDuckWindow = () => {
         }
     })
     duckWindow.setAlwaysOnTop(true, "screen-saver");
+    // duckWindow.webContents.openDevTools();
     duckWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen:true});
     duckWindow.loadFile(path.join(__dirname, 'index.html'));
     // duckWindow.on('move', (e)=>{
@@ -81,7 +82,10 @@ app.on('ready', () => {
     let sendObj = JSON.stringify({
         mood: store.get('mood'),
         language: store.get('language'),
-        sound: store.get('sound')
+        sound: store.get('sound'),
+        talking: store.get('talking'),
+        opacity: store.get('opacity'),
+        sizeMode: store.get('size-mode')
     })
     window.webContents.on('did-finish-load', () => {
         window.webContents.send('save-settings', sendObj);
@@ -140,6 +144,7 @@ const createWindowSettings = () => {
         backgroundColor: "rgba(255,255,255,0)",
         transparent: true,
         fullscreen: false,
+        hasShadow: false,
         webPreferences: {
             // Предотвращает запуск кода процесса рендеринга, когда окно скрыто.
             backgroundThrottling: false,
@@ -149,7 +154,7 @@ const createWindowSettings = () => {
     })
     window.setAlwaysOnTop(true, "screen-saver");
     window.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen:true})
-    // window.webContents.openDevTools();
+    window.webContents.openDevTools();
     window.loadURL(`file://${path.join(__dirname, 'settings.html')}`)
 
     // Скрыть окно, когда оно теряет фокус
@@ -215,6 +220,14 @@ ipcMain.on('change-sound-store', (event, json) => {
 
 ipcMain.on('change-language-store', (event, json) => {
     store.set('language', json);
+})
+
+ipcMain.on('change-talking-store', (event, json) => {
+    store.set('talking', json);
+})
+
+ipcMain.on('change-opacity-store', (event, json) => {
+    store.set('opacity', json);
 })
 // let showAndHideCallout = setInterval(()=>{
 //     if (calloutWindow.isVisible()) {
