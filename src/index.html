@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="wrapper" id="wrapper">
-    <img id="duck" class="duck walking-duck" src="assets/ducks/duck.png">
+    <img id="duck" class="duck walking-duck large" src="assets/ducks/duck.png">
     <audio id="krik" preload="auto" src="krik.mp3"></audio>
 
     <div class="callout_wrapper callout_walking" id="callout">
@@ -37,6 +37,7 @@
         {name: 'unicorn', src: 'assets/ducks/png_transparent_unicorn_duck_rubber_duck_bath_toy_bridegroom_lilalu.png'},
         {name: 'piracy', src: 'assets/ducks/rubber_duck_piracy_natural_rubber_png_favpng_62gK31QvdbjEGxWBqaLRNJ06c.jpg'}
     ]
+    let duckSize = 'large';
 
 
     let wrapper = document.getElementById('wrapper')
@@ -61,6 +62,65 @@
         }
     }
 
+    let setWindowSize = () =>{
+        let sizeWindow = {width: null, height: null};
+        log.postMessage(talkingDuck);
+        switch (duckSize){
+            case 'small':{
+                talkingDuck ? sizeWindow = {width: 235, height: 100} : sizeWindow = {width: 200, height: 100}
+                setTimeout(()=>ipcRenderer.send("change-window-size", sizeWindow), 1000)
+                break;
+            }
+            case 'medium':{
+                talkingDuck ? sizeWindow = {width: 300, height: 150} : sizeWindow = {width: 260, height: 150}
+                setTimeout(()=>ipcRenderer.send("change-window-size", sizeWindow), 1000)
+                break;
+            }
+            case 'large':{
+                talkingDuck ? sizeWindow = {width: 420, height: 200} : sizeWindow = {width: 330, height: 200}
+                setTimeout(()=>ipcRenderer.send("change-window-size", sizeWindow), 1000)
+                break;
+            }
+        }
+    }
+
+    let setDuckSize = (size) =>{
+        duckSize = size;
+        switch (size){
+            case 'small':{
+                if(duck.classList.contains('large')){
+                    duck.classList.remove('large')
+                    duck.classList.add('small')
+                }else if(duck.classList.contains('medium')){
+                    duck.classList.remove('medium')
+                    duck.classList.add('small')
+                }
+                break;
+            }
+            case 'medium':{
+                if(duck.classList.contains('large')){
+                    duck.classList.remove('large')
+                    duck.classList.add('medium')
+                }else if(duck.classList.contains('small')){
+                    duck.classList.remove('small')
+                    duck.classList.add('medium')
+                }
+                break;
+            }
+            case 'large':{
+                if(duck.classList.contains('medium')){
+                    duck.classList.remove('medium')
+                    duck.classList.add('large')
+                }else if(duck.classList.contains('small')){
+                    duck.classList.remove('small')
+                    duck.classList.add('large')
+                }
+                break;
+            }
+        }
+        setWindowSize();
+    }
+
     ipcRenderer.on('save-settings', (event, data) => {
         let settings = JSON.parse(data)
         setDuckImg(settings.mood)
@@ -72,19 +132,20 @@
         wrapper.style.opacity = settings.opacity / 100
 
         talkingDuck = settings.talking;
+
+        setDuckSize(settings.sizeMode);
     })
     callout.style.opacity = '0'
 
     let showCallout = () => {
-        let sizeInt = 0;
-        if (callout.style.opacity === '1') {
+        if (talkingDuck) {
             callout.style.opacity = '0'
-            sizeInt = 300
+            talkingDuck = false;
         } else {
             callout.style.opacity = '1';
-            sizeInt = 415
+            talkingDuck = true;
         }
-        ipcRenderer.send("show-callout", {size: sizeInt});
+        setWindowSize();
     }
 
     const channelImg = new BroadcastChannel("settingsImg");
@@ -93,19 +154,25 @@
     const channelLang = new BroadcastChannel("settingsLang");
     const channelWalkingDuck = new BroadcastChannel('channelWalkingDuck');
     const channelTalkingDuck = new BroadcastChannel('channelTalkingDuck');
+    const channelSizeDuck = new BroadcastChannel('channelSizeDuck');
+    const log = new BroadcastChannel('channelLog');
 
     channelWalkingDuck.onmessage = (event) =>{
         if(event.data){
-            duck.className = 'duck walking-duck'
-            callout.className = 'callout_wrapper callout_walking'
+            duck.classList.replace('non-walking', 'walking-duck')
+            callout.classList.replace('non-walking', 'callout_walking')
         }else{
-            duck.className = 'duck non-walking'
-            callout.className = 'callout_wrapper non-walking'
+            duck.classList.replace('walking-duck', 'non-walking')
+            callout.classList.replace('callout_walking', 'non-walking')
         }
     }
 
     channelImg.onmessage = (event) => {
         duck.src = event.data
+    }
+
+    channelSizeDuck.onmessage = (event) => {
+        setDuckSize(event.data)
     }
 
     channelSound.onmessage = (event) => {
@@ -125,6 +192,7 @@
 
     channelTalkingDuck.onmessage = (e)=>{
         talkingDuck = e.data;
+        setWindowSize()
     }
 
 

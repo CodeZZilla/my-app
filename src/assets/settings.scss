@@ -198,7 +198,11 @@ inset -.2rem -.2rem .5rem var(--white);
 }
 
 .card[data-state="#preferences"] {
-  height: 580px;
+  height: 650px;
+}
+
+.card[data-state="#quack-call"] {
+  height: 530px;
 }
 
 .card.is-active {

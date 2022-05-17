@@ -31,7 +31,11 @@
 }
 
 .card[data-state="#preferences"] {
-  height: 580px;
+  height: 650px;
+}
+
+.card[data-state="#quack-call"] {
+  height: 530px;
 }
 
 .card.is-active .card-header {
