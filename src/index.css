@@ -17,8 +17,9 @@ body {
     Arial, sans-serif;
   margin: auto;
   max-width: 80rem;
+  /*width: 80%;*/
   padding: 2rem;
-  overflow-y : hidden
+  /*overflow-y : hidden*/
 }
 
 img {
@@ -83,7 +84,7 @@ div.callout {
   /*height: 60px;*/
   max-height: 50px;
   /*width: 90px;*/
-  max-width: 90px;
+  max-width: 105px;
   float: left;
   top: -15px;
   left:-20px;

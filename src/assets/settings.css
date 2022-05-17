@@ -329,14 +329,17 @@
   font-size: 14px;
   font-weight: 500;
   font-family: "Jost", sans-serif;
-  transition: 0.3s;
+  transition: all 0.3s ease-in-out;
   margin-bottom: 10px;
+}
+.contact-me:hover {
+  box-shadow: 0 4px 11px rgba(28, 29, 31, 0.24);
 }
 
 .style-wrapper {
   display: flex;
   flex-wrap: wrap;
-  max-height: 180px;
+  max-height: 200px;
   overflow: scroll;
 }
 .style-wrapper .style-img {

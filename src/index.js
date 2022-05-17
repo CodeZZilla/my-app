@@ -64,7 +64,8 @@ app.on('ready', () => {
         sound: store.get('sound'),
         talking: store.get('talking'),
         opacity: store.get('opacity'),
-        sizeMode: store.get('size-mode')
+        sizeMode: store.get('size-mode'),
+        walking: store.get('walking')
     })
     window.webContents.on('did-finish-load', () => {
         window.webContents.send('save-settings', sendObj);
@@ -206,7 +207,11 @@ ipcMain.on('change-opacity-store', (event, json) => {
 })
 
 ipcMain.on('change-size-store', (event, json) => {
-    store.set('size', json);
+    store.set('size-mode', json);
+})
+
+ipcMain.on('change-walking-store', (event, json) => {
+    store.set('walking', json);
 })
 // let showAndHideCallout = setInterval(()=>{
 //     if (calloutWindow.isVisible()) {

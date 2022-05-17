@@ -25,9 +25,6 @@
                     <div class="style-card-wrapper style-active" id="simple" onclick="setDuck(this)">
                         <img class="style-img" src="assets/ducks/duck.png" alt="">
                     </div>
-                    <div class="style-card-wrapper" id="al-capone" onclick="setDuck(this)">
-                        <img class="style-img" src="assets/ducks/lilalu-quietscheente-al-capo-HR.png" alt="">
-                    </div>
                     <div class="style-card-wrapper" id="monkey" onclick="setDuck(this)">
                         <img class="style-img" src="assets/ducks/lilalu-quietscheente-affen-monkey-rubber-duck-HL_1_.png" alt="">
                     </div>
@@ -37,17 +34,20 @@
                     <div class="style-card-wrapper" id="black" onclick="setDuck(this)">
                         <img class="style-img" src="assets/ducks/lilalu-quietscheente-Ente-schwarz-rubber-duck-black-HL.png" alt="">
                     </div>
+                    <div class="style-card-wrapper" id="king" onclick="setDuck(this)">
+                        <img class="style-img" src="assets/ducks/1925_4_OK.png" alt="">
+                    </div>
                     <div class="style-card-wrapper" id="robot" onclick="setDuck(this)">
                         <img class="style-img" src="assets/ducks/lilalu-quietscheente-roboter-HL_1_-min.png" alt="">
                     </div>
-                    <div class="style-card-wrapper" id="avatar" onclick="setDuck(this)">
+                    <div class="style-card-wrapper style-pro" id="avatar" onclick="setDuck(this)">
                         <img class="style-img" src="assets/ducks/lilalu-quietscheente-rubber-duck-avatara-HL_1_.png" alt="">
                     </div>
-                    <div class="style-card-wrapper" id="unicorn" onclick="setDuck(this)">
-                        <img class="style-img" src="assets/ducks/lilalu-quietscheente-einhorn-pink-unicorn-rubber-duck-HL_1_.png" alt="">
+                    <div class="style-card-wrapper style-pro" id="al-capone" onclick="setDuck(this)">
+                        <img class="style-img" src="assets/ducks/lilalu-quietscheente-al-capo-HR.png" alt="">
                     </div>
-                    <div class="style-card-wrapper style-pro" id="king" onclick="setDuck(this)">
-                        <img class="style-img" src="assets/ducks/1925_4_OK.png" alt="">
+                    <div class="style-card-wrapper style-pro" id="unicorn" onclick="setDuck(this)">
+                        <img class="style-img" src="assets/ducks/lilalu-quietscheente-einhorn-pink-unicorn-rubber-duck-HL_1_.png" alt="">
                     </div>
                 </div>
             </div>
@@ -98,27 +98,27 @@
                     </div>
 
                     <div class="setting-group">
-                        <p>Sound</p>
+                        <p id="sound-label">Sound</p>
                         <label for="sound"></label><input onchange="changeSound()" class="duck-sound input-range" id="sound" name="size-icon" type="range" min="0" max="100"/>
                     </div>
 
                     <div class="setting-group">
-                        <p>Opacity</p>
+                        <p id="opacity-label">Opacity</p>
                         <label for="opacity"></label><input onchange="changeOpacity()" class="duck-sound input-range" id="opacity" name="size-icon" type="range" min="0" max="100"/>
                     </div>
 
                     <div class="segmented-control size-control">
                         <input type="radio" name="sizeRadio" value="small" id="size-small" onclick="sizeChange(this)"/>
                         <label for="size-small" class= "segmented-control__1">
-                            <p>Small</p></label>
+                            <p id="small-label">Small</p></label>
 
                         <input type="radio" name="sizeRadio" value="medium" id="size-medium" onclick="sizeChange(this)" />
                         <label for="size-medium" class= "segmented-control__2">
-                            <p>Medium</p></label>
+                            <p id="medium-label">Medium</p></label>
 
                         <input type="radio" name="sizeRadio" value="large" id="size-large" onclick="sizeChange(this)" checked />
                         <label for="size-large" class= "segmented-control__3">
-                            <p>Large</p></label>
+                            <p id="large-label">Large</p></label>
 
                         <div class="segmented-control__color"></div>
                     </div>
@@ -170,13 +170,15 @@
                             <path d="M377 0H135C60.562 0 0 60.563 0 135v242c0 74.438 60.563 135 135 135h242c74.438 0 135-60.563 135-135V135C512 60.562 451.437 0 377 0zm45 332c0 49.625-40.375 90-90 90H180c-49.625 0-90-40.375-90-90V180c0-49.625 40.375-90 90-90h152c49.625 0 90 40.375 90 90zm0 0" /></svg></a>
                         <a href="#"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" /></svg></a>
+                        <a href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
                     </div>
-
                     <button id="website-btn" class="contact-me">WEBSITE</button>
                 </div>
             </div>
             <!--            <div class="card-content">-->
-            <!--                <div class="card-subtitle">MAIN</div>-->
+<!--                            <div class="card-subtitle">MAIN</div>-->
             <!--                <p class="card-desc">Whatever tattooed stumptown art party sriracha gentrify hashtag intelligentsia readymade schlitz brooklyn disrupt.-->
             <!--                </p>-->
             <!--            </div>-->
@@ -292,6 +294,12 @@
             // document.getElementById('duck-speaking-label').textContent = 'Спілкування з Качкою'
             document.getElementById('app-autorun-label').textContent = 'Автозапуск'
             document.getElementById('website-btn').textContent = 'Веб-сайт'
+            document.getElementById('sound-label').textContent = 'Гучність'
+            document.getElementById('opacity-label').textContent = 'Прозорість'
+            document.getElementById('small-label').textContent = 'Міні'
+            document.getElementById('medium-label').textContent = 'Середня'
+            document.getElementById('large-label').textContent = 'Велика'
+
         } else if (lang === 'en') {
             styleBtn.textContent = "STYLE"
             preferencesBtn.textContent = 'PREFERENCES'
@@ -304,6 +312,11 @@
             // document.getElementById('duck-speaking-label').textContent = 'Speaking with Duck'
             document.getElementById('app-autorun-label').textContent = 'App autorun'
             document.getElementById('website-btn').textContent = 'WEBSITE'
+            document.getElementById('sound-label').textContent = 'Volume'
+            document.getElementById('opacity-label').textContent = 'Opacity'
+            document.getElementById('small-label').textContent = 'Small'
+            document.getElementById('medium-label').textContent = 'Medium'
+            document.getElementById('large-label').textContent = 'Large'
 
         }
     }
@@ -315,7 +328,7 @@
 
     let sizeChange = (element) => {
         channelSizeDuck.postMessage(element.value);
-        // ipcRenderer.send('change-size-store', element.value);
+        ipcRenderer.send('change-size-store', element.value);
     }
 
     log.onmessage=(e)=>{

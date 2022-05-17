@@ -22,9 +22,20 @@
     let talkingDuck = true;
     let arrWithTextEng = [
         'Just google it.',
+        'How do you do?',
+        'What are you doing?',
+        'Cool code!',
+        'Do you like me?',
+        'What is your fav IDE?',
+        'Don`t worry - google it.'
     ]
     let arrWithTextUkr = [
         'Просто загугли.',
+        'Як справи?',
+        "Що робиш?",
+        "Круто кодиш!",
+        "Яка твоя улюблена IDE?",
+        'Не парся - загугли'
     ]
     let ducks = [
         {name: 'simple',
@@ -76,12 +87,12 @@
         log.postMessage(talkingDuck);
         switch (duckSize){
             case 'small':{
-                talkingDuck ? sizeWindow = {width: 235, height: 100} : sizeWindow = {width: 200, height: 100}
+                talkingDuck ? sizeWindow = {width: 335, height: 100} : sizeWindow = {width: 190, height: 100}
                 setTimeout(()=>ipcRenderer.send("change-window-size", sizeWindow), 1000)
                 break;
             }
             case 'medium':{
-                talkingDuck ? sizeWindow = {width: 300, height: 150} : sizeWindow = {width: 260, height: 150}
+                talkingDuck ? sizeWindow = {width: 370, height: 145} : sizeWindow = {width: 260, height: 145}
                 setTimeout(()=>ipcRenderer.send("change-window-size", sizeWindow),500)
                 break;
             }
@@ -143,18 +154,31 @@
         talkingDuck = settings.talking;
 
         setDuckSize(settings.sizeMode);
+        setWalkingDuck(settings.walking)
     })
     callout.style.opacity = '0'
 
-    let showCallout = () => {
-        if (talkingDuck) {
-            callout.style.opacity = '0'
-            talkingDuck = false;
-        } else {
-            callout.style.opacity = '1';
-            talkingDuck = true;
+    let setWalkingDuck = (walks) =>{
+        if(walks){
+            duck.classList.replace('non-walking', 'walking-duck')
+            callout.classList.replace('non-walking', 'callout_walking')
+        }else{
+            duck.classList.replace('walking-duck', 'non-walking')
+            callout.classList.replace('callout_walking', 'non-walking')
         }
-        setWindowSize();
+    }
+
+    let showCallout = () => {
+        if (callout.style.opacity === '1') {
+            // talkingDuck = false;
+            // setWindowSize();
+            callout.style.opacity = '0'
+        } else {
+            // talkingDuck = true;
+            // setWindowSize();
+            callout.style.opacity = '1';
+        }
+        // setWindowSize();
     }
 
     const channelImg = new BroadcastChannel("settingsImg");
@@ -174,6 +198,7 @@
             duck.classList.replace('walking-duck', 'non-walking')
             callout.classList.replace('callout_walking', 'non-walking')
         }
+
     }
 
     channelImg.onmessage = (event) => {
@@ -224,7 +249,7 @@
             showCallout(lang)
             setTimeout(()=>{showCallout(lang)},10000)
         }
-    }, 1500000)
+    }, 60000)
 
 </script>
 <!--<script src="./AgoraRTC_N-4.11.1.js"></script>-->
