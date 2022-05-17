@@ -90,14 +90,6 @@
 <!--                    </div>-->
 
                     <div class="setting-group">
-                        <p id="small-mode-label">Small mode</p>
-                        <div class="switch">
-                            <input id="small-mode" type="checkbox" checked >
-                            <label for="small-mode"></label>
-                        </div>
-                    </div>
-
-                    <div class="setting-group">
                         <p id="app-autorun-label">App autorun</p>
                         <div class="switch">
                             <input id="app-autorun" type="checkbox" checked >
@@ -115,7 +107,23 @@
                         <label for="opacity"></label><input onchange="changeOpacity()" class="duck-sound input-range" id="opacity" name="size-icon" type="range" min="0" max="100"/>
                     </div>
 
-                    <div class="segmented-control">
+                    <div class="segmented-control size-control">
+                        <input type="radio" name="sizeRadio" value="small" id="size-small" onclick="sizeChange(this)"/>
+                        <label for="size-small" class= "segmented-control__1">
+                            <p>Small</p></label>
+
+                        <input type="radio" name="sizeRadio" value="medium" id="size-medium" onclick="sizeChange(this)" />
+                        <label for="size-medium" class= "segmented-control__2">
+                            <p>Medium</p></label>
+
+                        <input type="radio" name="sizeRadio" value="large" id="size-large" onclick="sizeChange(this)" checked />
+                        <label for="size-large" class= "segmented-control__3">
+                            <p>Large</p></label>
+
+                        <div class="segmented-control__color"></div>
+                    </div>
+
+                    <div class="segmented-control language-control">
 
                         <input type="radio" name="langRadio" value="en" id="tab-1" checked onclick="languageChange(this)"/>
                         <label for="tab-1" class= "segmented-control__1">
@@ -127,7 +135,8 @@
 
                         <div class="segmented-control__color"></div>
                     </div>
-<!--                    <button class="contact-me">Save changes</button>-->
+
+                    <!--                    <button class="contact-me">Save changes</button>-->
                 </div>
             </div>
         </div>
@@ -182,6 +191,9 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+
+
+
 <script>
     const buttons = document.querySelectorAll(".card-buttons button");
     const sections = document.querySelectorAll(".card-section");
@@ -219,6 +231,7 @@
     const channelLang = new BroadcastChannel('settingsLang');
     const channelWalkingDuck = new BroadcastChannel('channelWalkingDuck');
     const channelTalkingDuck = new BroadcastChannel('channelTalkingDuck');
+    const channelSizeDuck = new BroadcastChannel('channelSizeDuck');
 
     const {ipcRenderer} = require('electron')
 
@@ -256,6 +269,11 @@
         setLanguageInterface(element.value);
     }
 
+    let sizeChange = (element) => {
+        channelSizeDuck.postMessage(element.value);
+        ipcRenderer.send('change-size-store', element.value);
+    }
+
 
     ipcRenderer.on('save-settings', (event, data) => {
         console.log(data)
@@ -273,6 +291,20 @@
         }
         setLanguageInterface(settings.language);
         document.getElementById('duck-talking').checked = settings.talking
+
+        if (settings.sizeMode === 'small') {
+            document.getElementsByName('sizeRadio')[0].checked = true;
+            document.getElementsByName('sizeRadio')[1].checked = false;
+            document.getElementsByName('sizeRadio')[2].checked = false;
+        } else if (settings.sizeMode === 'medium') {
+            document.getElementsByName('sizeRadio')[0].checked = false;
+            document.getElementsByName('sizeRadio')[1].checked = true;
+            document.getElementsByName('sizeRadio')[2].checked = false;
+        }else if(settings.sizeMode === 'large'){
+            document.getElementsByName('sizeRadio')[0].checked = false;
+            document.getElementsByName('sizeRadio')[1].checked = false;
+            document.getElementsByName('sizeRadio')[2].checked = true;
+        }
     });
 
     let ducks = [
@@ -295,28 +327,6 @@
                 ipcRenderer.send('change-mood-store', duck.name);
             }
         }
-        // switch (mood.id) {
-        //     case "simple":
-        //         mainDuckImg.src = 'assets/ducks/duck.png';
-        //         ipcRenderer.send('change-mood-store', 'simple');
-        //         channelImg.postMessage("assets/ducks/duck.png");
-        //         break;
-        //     case "realistic":
-        //         mainDuckImg.src = 'assets/ducks/duck_PNG5011.png';
-        //         ipcRenderer.send('change-mood-store', 'realistic');
-        //         channelImg.postMessage("assets/ducks/duck_PNG5011.png");
-        //         break;
-        //     case "cool":
-        //         mainDuckImg.src = 'assets/ducks/83e4a943664a198eb141cd46d6e36b21.png';
-        //         ipcRenderer.send('change-mood-store', 'cool');
-        //         channelImg.postMessage("assets/ducks/83e4a943664a198eb141cd46d6e36b21.png");
-        //         break;
-        //     default:
-        //         mainDuckImg.src = 'assets/ducks/duck.png';
-        //         ipcRenderer.send('change-mood-store', 'simple');
-        //         channelImg.postMessage("assets/ducks/duck.png");
-        //         break;
-        // }
     }
 
     let changeSound = () => {

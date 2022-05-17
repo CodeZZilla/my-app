@@ -26,6 +26,18 @@
     let arrWithTextUkr = [
         'Просто загугли.',
     ]
+    let ducks = [
+        {name: 'simple', src: 'assets/ducks/duck.png'},
+        {name: 'realistic', src: 'assets/ducks/duck_PNG5011.png'},
+        {name: 'cool', src: 'assets/ducks/83e4a943664a198eb141cd46d6e36b21.png'},
+        {name: 'lilalu1', src: 'assets/ducks/lilalu-quietscheente-al-capo-HR.png'},
+        {name: 'lilalu2', src: 'assets/ducks/lilalu-quietscheente-barkeeper-rubber-duck-HR_436x436.png'},
+        {name: 'paparazzi', src: 'assets/ducks/Paparazzi-Press-Media-Rubber-Duck-BudUSA-4__45420.1576269236.jpg'},
+        {name: 'pixel', src: 'assets/ducks/pixel-yellow-duck-vector-21513825.jpg'},
+        {name: 'unicorn', src: 'assets/ducks/png_transparent_unicorn_duck_rubber_duck_bath_toy_bridegroom_lilalu.png'},
+        {name: 'piracy', src: 'assets/ducks/rubber_duck_piracy_natural_rubber_png_favpng_62gK31QvdbjEGxWBqaLRNJ06c.jpg'}
+    ]
+
 
     let wrapper = document.getElementById('wrapper')
     let duck = document.getElementById('duck')
@@ -41,19 +53,17 @@
 
     const {ipcRenderer} = require('electron')
 
+    let setDuckImg = (mood) =>{
+        for (let duckItem of ducks) {
+            if(mood===duckItem.name){
+                duck.src = duckItem.src;
+            }
+        }
+    }
+
     ipcRenderer.on('save-settings', (event, data) => {
         let settings = JSON.parse(data)
-        switch (settings.mood) {
-            case "standart":
-                duck.src = "assets/ducks/duck.png";
-                break;
-            case "realistic":
-                duck.src = "assets/ducks/duck_PNG5011.png";
-                break;
-            case "cool":
-                duck.src = "assets/ducks/83e4a943664a198eb141cd46d6e36b21.png";
-                break;
-        }
+        setDuckImg(settings.mood)
 
         lang = settings.language;
         setText(settings.language);
@@ -62,8 +72,6 @@
         wrapper.style.opacity = settings.opacity / 100
 
         talkingDuck = settings.talking;
-
-
     })
     callout.style.opacity = '0'
 
@@ -118,6 +126,7 @@
     channelTalkingDuck.onmessage = (e)=>{
         talkingDuck = e.data;
     }
+
 
     const setText = (lang) => {
         console.log(lang)

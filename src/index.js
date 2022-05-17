@@ -3,6 +3,7 @@ const path = require('path')
 const Store = require('electron-store');
 const store = new Store();
 
+app.allowRendererProcessReuse = false;
 
 if (require('electron-squirrel-startup')) {
     app.quit();
@@ -23,7 +24,7 @@ const createDuckWindow = () => {
         backgroundColor: "rgba(255,0,0,0)",
         autoHideMenuBar: true,
         resizable: false, //set false
-        width: 415,
+        width: 300,
         height: 200,
         x: 0,
         y: 0,
@@ -33,6 +34,7 @@ const createDuckWindow = () => {
             nodeIntegration: true,
             contextIsolation: false
         }
+
     })
     duckWindow.setAlwaysOnTop(true, "screen-saver");
     // duckWindow.webContents.openDevTools();
@@ -146,9 +148,11 @@ const createWindowSettings = () => {
         fullscreen: false,
         hasShadow: false,
         webPreferences: {
+            nodeIntegration: true,
+            enableRemoteModule: true,
+            preload: path.join(__dirname,  "assets/renderer.js"),
             // Предотвращает запуск кода процесса рендеринга, когда окно скрыто.
             backgroundThrottling: false,
-            nodeIntegration: true,
             contextIsolation: false
         }
     })
@@ -228,6 +232,10 @@ ipcMain.on('change-talking-store', (event, json) => {
 
 ipcMain.on('change-opacity-store', (event, json) => {
     store.set('opacity', json);
+})
+
+ipcMain.on('change-size-store', (event, json) => {
+    store.set('size', json);
 })
 // let showAndHideCallout = setInterval(()=>{
 //     if (calloutWindow.isVisible()) {

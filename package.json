@@ -16,6 +16,11 @@
     "name": "dimas",
     "email": "dimmaa9@gmail.com"
   },
+  "agora_electron": {
+    "electron_version": "10.2.0",
+    "platform": "darwin",
+    "prebuilt": true
+  },
   "license": "MIT",
   "config": {
     "forge": {
@@ -45,8 +50,11 @@
     }
   },
   "dependencies": {
+    "agora-electron-sdk": "^3.6.1-rc.5-build.511",
     "electron-squirrel-startup": "^1.0.0",
-    "electron-store": "^8.0.1"
+    "electron-store": "^8.0.1",
+    "ipc": "^0.0.1",
+    "os": "^0.1.2"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.63",
