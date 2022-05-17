@@ -38,7 +38,7 @@ const createDuckWindow = () => {
     })
     duckWindow.setAlwaysOnTop(true, "screen-saver");
     // duckWindow.webContents.openDevTools();
-    duckWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen:true});
+    duckWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen: true});
     duckWindow.loadFile(path.join(__dirname, 'index.html'));
     // duckWindow.on('move', (e)=>{
     //     //для теста
@@ -150,14 +150,14 @@ const createWindowSettings = () => {
         webPreferences: {
             nodeIntegration: true,
             enableRemoteModule: true,
-            preload: path.join(__dirname,  "assets/renderer.js"),
+            // preload: path.join(__dirname,  "assets/renderer.js"),
             // Предотвращает запуск кода процесса рендеринга, когда окно скрыто.
             backgroundThrottling: false,
             contextIsolation: false
         }
     })
     window.setAlwaysOnTop(true, "screen-saver");
-    window.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen:true})
+    window.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen: true})
     window.webContents.openDevTools();
     window.loadURL(`file://${path.join(__dirname, 'settings.html')}`)
 
