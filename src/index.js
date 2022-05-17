@@ -1,7 +1,6 @@
 const {app, BrowserWindow, ipcMain, Tray, ipcRenderer} = require('electron')
 const path = require('path')
 const Store = require('electron-store');
-const AutoLaunch = require('auto-launch');
 const store = new Store();
 
 app.allowRendererProcessReuse = false;
@@ -58,13 +57,6 @@ app.on('ready', () => {
     createTray()
     createWindowSettings()
 
-    let autoLaunch = new AutoLaunch({
-        name: 'My Duck',
-        path: app.getPath('exe'),
-    });
-    autoLaunch.isEnabled().then((isEnabled) => {
-        if (!isEnabled) autoLaunch.enable();
-    });
     // createCalloutWindow()
 
     let sendObj = JSON.stringify({

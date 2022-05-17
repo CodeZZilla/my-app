@@ -198,7 +198,7 @@ inset -.2rem -.2rem .5rem var(--white);
 }
 
 .card[data-state="#preferences"] {
-  height: 650px;
+  height: 580px;
 }
 
 .card[data-state="#quack-call"] {
@@ -518,7 +518,10 @@ inset -.2rem -.2rem .5rem var(--white);
   }
 }
 
+
 .contact-me {
+
+
   border: 0;
   outline: none;
   background: linear-gradient(
@@ -541,6 +544,7 @@ inset -.2rem -.2rem .5rem var(--white);
   &:hover{
     box-shadow: 0 4px 11px rgba(28, 29, 31, 0.24);
   }
+
 }
 
 .style-wrapper{
