@@ -50,29 +50,6 @@ const createDuckWindow = () => {
     // })
 };
 
-// const createCalloutWindow = () => {
-//     calloutWindow = new BrowserWindow({
-//         frame: 0,
-//         hasShadow: false,
-//         transparent: true,
-//         backgroundColor: "rgba(255,0,0,0)",
-//         autoHideMenuBar: true,
-//         resizable: false,
-//         width: 350,
-//         height: 115,
-//         x: 70,
-//         y: 0,
-//         minimizable: false,
-//         webPreferences: {
-//             nodeIntegration: true
-//         }
-//     })
-//     calloutWindow.setAlwaysOnTop(true, "screen-saver");
-//     calloutWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen:true})
-//     calloutWindow.loadFile(path.join(__dirname, 'callout.html'))
-// }
-
-
 app.dock.hide()
 
 app.on('ready', () => {
@@ -150,7 +127,7 @@ const createWindowSettings = () => {
         webPreferences: {
             nodeIntegration: true,
             enableRemoteModule: true,
-            preload: path.join(__dirname,  "assets/renderer.js"),
+            // preload: path.join(__dirname,  "assets/renderer.js"),
             // Предотвращает запуск кода процесса рендеринга, когда окно скрыто.
             backgroundThrottling: false,
             contextIsolation: false
@@ -188,29 +165,23 @@ ipcMain.on('show-window', () => {
     showWindow()
 })
 
-ipcMain.on('show-callout', (event, json) => {
-    // duckWindow.hide()
-    // duckWindow.width == 300 ?
-    //     duckWindow.setSize(300, 200) :  duckWindow.setSize(500, 200);
-    duckWindow.setSize(json.size, 200);
-    // calloutWindow.isVisible() ? calloutWindow.hide() : calloutWindow.show()
+// ipcMain.on('show-callout', (event, json) => {
+//     // duckWindow.hide()
+//     // duckWindow.width == 300 ?
+//     //     duckWindow.setSize(300, 200) :  duckWindow.setSize(500, 200);
+//     duckWindow.setSize(json.size, 200);
+//     // calloutWindow.isVisible() ? calloutWindow.hide() : calloutWindow.show()
+// })
+
+ipcMain.on('change-window-size', (event, json)=>{
+    duckWindow.setSize(json.width, json.height)
 })
 
 ipcMain.on('duck-window-status', (event, json) => {
     if (duckWindow.isVisible()) {
         duckWindow.hide()
-        // calloutWindow.hide()
-        // let showAndHideCallout = setInterval(()=>{
-        //     if (calloutWindow.isVisible()) {
-        //         calloutWindow.hide()
-        //     } else {
-        //         calloutWindow.show()
-        //     }
-        // },15000)
     } else {
         duckWindow.show()
-        // calloutWindow.show()
-        // clearInterval(showAndHideCallout);
     }
 });
 

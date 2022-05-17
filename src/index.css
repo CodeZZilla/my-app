@@ -37,6 +37,15 @@ img {
   /*height: 100%;*/
   /*width: auto;*/
 }
+.small{
+  height: 2rem !important;
+}
+.medium{
+  height: 5.5rem !important;
+}
+.large{
+  height: 9.5rem !important;
+}
 
 .walking-duck{
   animation: rubber-ducky 10s infinite linear;
