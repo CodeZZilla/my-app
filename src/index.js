@@ -158,7 +158,7 @@ const createWindowSettings = () => {
     })
     window.setAlwaysOnTop(true, "screen-saver");
     window.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen: true})
-    window.webContents.openDevTools();
+    //window.webContents.openDevTools();
     window.loadURL(`file://${path.join(__dirname, 'settings.html')}`)
 
     // Скрыть окно, когда оно теряет фокус
