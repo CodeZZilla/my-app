@@ -196,7 +196,7 @@
 
         window.onload = function () {
 
-            document.getElementById("join").onclick = async function () {
+            async function join() {
                 // Join an RTC channel.
                 await rtc.client.join(options.appId, options.channel, options.token, options.uid);
                 // Create a local audio track from the audio sampled by a microphone.
@@ -207,13 +207,14 @@
                 console.log("publish success!");
             }
 
-            document.getElementById("leave").onclick = async function () {
-                // Destroy the local audio track.
-                rtc.localAudioTrack.close();
-
-                // Leave the channel.
-                await rtc.client.leave();
-            }
+            join()
+            // document.getElementById("leave").onclick = async function () {
+            //     // Destroy the local audio track.
+            //     rtc.localAudioTrack.close();
+            //
+            //     // Leave the channel.
+            //     await rtc.client.leave();
+            // }
         }
     }
 

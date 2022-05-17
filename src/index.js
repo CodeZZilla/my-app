@@ -24,7 +24,7 @@ const createDuckWindow = () => {
         backgroundColor: "rgba(255,0,0,0)",
         autoHideMenuBar: true,
         resizable: false, //set false
-        width: 300,
+        width: 300, //300
         height: 200,
         x: 0,
         y: 0,
@@ -37,7 +37,7 @@ const createDuckWindow = () => {
 
     })
     duckWindow.setAlwaysOnTop(true, "screen-saver");
-    // duckWindow.webContents.openDevTools();
+    //duckWindow.webContents.openDevTools();
     duckWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen: true});
     duckWindow.loadFile(path.join(__dirname, 'index.html'));
     // duckWindow.on('move', (e)=>{
