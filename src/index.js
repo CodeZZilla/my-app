@@ -1,6 +1,7 @@
 const {app, BrowserWindow, ipcMain, Tray, ipcRenderer} = require('electron')
 const path = require('path')
 const Store = require('electron-store');
+const AutoLaunch = require('auto-launch');
 const store = new Store();
 
 app.allowRendererProcessReuse = false;
@@ -37,7 +38,7 @@ const createDuckWindow = () => {
 
     })
     duckWindow.setAlwaysOnTop(true, "screen-saver");
-    //duckWindow.webContents.openDevTools();
+    // duckWindow.webContents.openDevTools();
     duckWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen: true});
     duckWindow.loadFile(path.join(__dirname, 'index.html'));
     // duckWindow.on('move', (e)=>{
@@ -56,6 +57,14 @@ app.on('ready', () => {
     createDuckWindow()
     createTray()
     createWindowSettings()
+
+    let autoLaunch = new AutoLaunch({
+        name: 'My Duck',
+        path: app.getPath('exe'),
+    });
+    autoLaunch.isEnabled().then((isEnabled) => {
+        if (!isEnabled) autoLaunch.enable();
+    });
     // createCalloutWindow()
 
     let sendObj = JSON.stringify({
@@ -212,6 +221,10 @@ ipcMain.on('change-size-store', (event, json) => {
 
 ipcMain.on('change-walking-store', (event, json) => {
     store.set('walking', json);
+})
+
+ipcMain.on('app-close', (event, json)=>{
+    app.exit(0)
 })
 // let showAndHideCallout = setInterval(()=>{
 //     if (calloutWindow.isVisible()) {

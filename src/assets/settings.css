@@ -555,4 +555,18 @@
   background: var(--primary-dark);
 }
 
+.close {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  z-index: 1000;
+  display: flex;
+}
+.close:hover {
+  cursor: pointer !important;
+  background-color: rgba(255, 255, 255, 0.11);
+}
+
 /*# sourceMappingURL=settings.css.map */
