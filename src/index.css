@@ -85,6 +85,7 @@ div.callout {
   max-height: 50px;
   /*width: 90px;*/
   max-width: 105px;
+  min-width: 70px;
   float: left;
   top: -15px;
   left:-20px;

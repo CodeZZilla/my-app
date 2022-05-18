@@ -1,6 +1,7 @@
 const {app, BrowserWindow, ipcMain, Tray, ipcRenderer} = require('electron')
 const path = require('path')
 const Store = require('electron-store');
+const AutoLaunch = require('auto-launch')
 const store = new Store();
 
 app.allowRendererProcessReuse = false;
@@ -14,7 +15,7 @@ const assetsDirectory = path.join(__dirname, 'assets')
 let duckWindow = undefined
 let tray = undefined
 let window = undefined
-// let calloutWindow = undefined
+let autorun = null
 
 const createDuckWindow = () => {
     duckWindow = new BrowserWindow({
@@ -57,7 +58,15 @@ app.on('ready', () => {
     createTray()
     createWindowSettings()
 
-    // createCalloutWindow()
+    if(autorun){
+        let autoLaunch = new AutoLaunch({
+            name: 'My Duck',
+            path: app.getPath('dmg'),
+        });
+        autoLaunch.isEnabled().then((isEnabled) => {
+            if (!isEnabled) autoLaunch.enable();
+        });
+    }
 
     let sendObj = JSON.stringify({
         mood: store.get('mood'),
@@ -66,7 +75,8 @@ app.on('ready', () => {
         talking: store.get('talking'),
         opacity: store.get('opacity'),
         sizeMode: store.get('size-mode'),
-        walking: store.get('walking')
+        walking: store.get('walking'),
+        autorun: store.get('autorun')
     })
     window.webContents.on('did-finish-load', () => {
         window.webContents.send('save-settings', sendObj);
@@ -213,6 +223,11 @@ ipcMain.on('change-size-store', (event, json) => {
 
 ipcMain.on('change-walking-store', (event, json) => {
     store.set('walking', json);
+})
+
+ipcMain.on('change-autorun-store', (event, json) => {
+    store.set('autorun', json);
+    autorun = json.data
 })
 
 ipcMain.on('app-close', (event, json)=>{
